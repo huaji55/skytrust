@@ -5,25 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>光遇工具站 (Sky Tools)</title>
 <style>
-    /* 基礎樣式 (Light Mode) */
-    body { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #333; line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+    body { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #333; line-height: 1.6; transition: 0.3s; }
     header { text-align: center; background: linear-gradient(135deg, #66a6ff, #89f7fe); color: #fff; padding: 30px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative; }
     header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; }
     header p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
 
-    /* 主題切換按鈕 */
-    .theme-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.2); border: none; color: white; padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: 0.2s; }
-    .theme-btn:hover { background: rgba(0,0,0,0.4); }
+    .top-controls { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; align-items: center; }
+    .top-left-controls { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; align-items: center; }
+    .lang-label { font-size: 12px; font-weight: bold; color: rgba(255,255,255,0.9); }
+    .top-btn, .top-select { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; outline: none; }
+    .top-btn:hover, .top-select:hover { background: rgba(0,0,0,0.4); }
+    .top-select option { background: #333; color: #fff; }
 
     .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
     .nav-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
-    .card { background-color: #fff; border-radius: 12px; padding: 25px 20px; width: 260px; text-align: center; text-decoration: none; color: #333; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 2px solid transparent; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background-color 0.3s; }
+    .card { background-color: #fff; border-radius: 12px; padding: 25px 20px; width: 260px; text-align: center; text-decoration: none; color: #333; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 2px solid transparent; transition: 0.3s; }
     .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(102, 166, 255, 0.2); border-color: #66a6ff; }
     .card-icon { font-size: 40px; margin-bottom: 10px; }
     .card-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
-    .card-desc { font-size: 13px; color: #666; transition: color 0.3s; }
+    .card-desc { font-size: 13px; color: #666; transition: 0.3s; }
 
-    .about-section { background-color: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: background-color 0.3s; }
+    .about-section { background-color: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
     .about-section h2 { text-align: center; margin-top: 0; margin-bottom: 25px; color: #2b5876; font-size: 22px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
     .about-block { margin-bottom: 20px; }
     .about-block h3 { font-size: 16px; color: #444; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
@@ -33,7 +35,7 @@
     .about-block a:hover { text-decoration: underline; }
     .contact-list { list-style: none; padding: 0; }
 
-    /* 黑暗模式 (Dark Mode) */
+    /* 黑暗模式 */
     body.dark-mode { background-color: #1a1a1a; color: #ddd; }
     body.dark-mode header { background: linear-gradient(135deg, #1e3c72, #2a5298); }
     body.dark-mode .card { background-color: #2a2a2a; border-color: #444; color: #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
@@ -48,40 +50,50 @@
 <body>
 
 <header>
-    <h1>光遇工具站</h1>
-    <p>Sky: Children of the Light Tools</p>
-    <button class="theme-btn" onclick="toggleTheme()">🌓 切換主題</button>
+    <h1 id="ui-title">光遇工具站</h1> <p>Sky: Children of the Light Tools</p>
+    
+    <div class="top-left-controls">
+        <span id="ui-lang-label" class="lang-label">語言</span>
+        <select id="langSelect" class="top-select" onchange="changeLang()">
+            <option value="zh-hant">繁體中文</option>
+            <option value="zh">简体中文</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
+    <div class="top-controls">
+        <button class="top-btn" onclick="toggleTheme()">🌓 Theme</button>
+    </div>
 </header>
 
 <div class="container">
     <div class="nav-cards">
         <a href="spirit.html" class="card">
             <div class="card-icon">🕯️</div>
-            <div class="card-title">季節先祖計算器</div>
-            <div class="card-desc">計算先祖解鎖所需的季蠟與好感度，支援多套自定義解鎖方案儲存。</div>
+            <div class="card-title" id="ui-spirit-title">季節先祖計算器</div>
+            <div class="card-desc" id="ui-spirit-desc">計算先祖解鎖所需的季蠟與好感度，支援多套自定義解鎖方案儲存。</div>
         </a>
         <a href="friend.html" class="card">
             <div class="card-icon">🤝</div>
-            <div class="card-title">好友樹規劃器</div>
-            <div class="card-desc">多好友紀錄支援，規劃各層級解鎖目標、好感度與蠟燭花費試算。</div>
+            <div class="card-title" id="ui-friend-title">好友樹規劃器</div>
+            <div class="card-desc" id="ui-friend-desc">多好友紀錄支援，規劃各層級解鎖目標、好感度與蠟燭花費試算。</div>
         </a>
     </div>
 
     <div class="about-section">
-        <h2>關於此網站</h2>
+        <h2 id="ui-about">關於此網站</h2>
         <div class="about-block">
-            <h3>關於作者</h3>
-            <p>興趣製作，這個網站的目的是提供更簡潔的資訊，幫助光遇的玩家快速了解。</p>
+            <h3 id="ui-author">關於作者</h3>
+            <p id="ui-author-desc">興趣製作，這個網站的目的是提供更簡潔的資訊，幫助光遇的玩家快速了解。</p>
         </div>
         <div class="about-block">
-            <h3>專案網站</h3>
-            <p><a href="https://github.com/huaji55/sky_trust" target="_blank">GitHub 專案</a> (點擊前往)</p>
-            <p>歡迎提供修改建議與想法，敬請指教！</p>
+            <h3 id="ui-project">專案網站</h3>
+            <p><a href="https://github.com/您的帳號/您的專案" target="_blank" id="ui-github">GitHub 專案 (點擊前往)</a></p>
         </div>
         <div class="about-block">
-            <h3>聯繫方式</h3>
+            <h3 id="ui-contact">聯繫方式</h3>
             <ul class="contact-list">
-                <li>📧 <strong>Gmail:</strong> <a href="mailto:adam105195@gmail.com">adam105195@gmail.com</a></li>
+                <li>📧 <strong>Gmail:</strong> <a href="mailto:您的信箱@gmail.com">您的信箱@gmail.com</a></li>
                 <li>💬 <strong>Discord:</strong> huaji.</li>
             </ul>
         </div>
@@ -89,16 +101,49 @@
 </div>
 
 <script>
-    function initTheme() {
+    const uiDict = {
+        'zh-hant': { langLabel: '語言', title: '光遇工具站', spiritTitle: '季節先祖計算器', spiritDesc: '計算先祖解鎖所需的季蠟與好感度，支援多套自定義解鎖方案儲存。', friendTitle: '好友樹規劃器', friendDesc: '多好友紀錄支援，規劃各層級解鎖目標、好感度與蠟燭花費試算。', about: '關於此網站', author: '關於作者', authorDesc: '興趣製作，這個網站的目的是提供更簡潔的資訊，幫助光遇的玩家快速了解。', project: '專案網站', github: 'GitHub 專案 (點擊前往)', contact: '聯繫方式' },
+        'zh': { langLabel: '语言', title: '光遇工具站', spiritTitle: '季节先祖计算器', spiritDesc: '计算先祖解锁所需的季蜡与好感度，支持多套自定义解锁方案储存。', friendTitle: '好友树规划器', friendDesc: '多好友纪录支持，规划各层级解锁目标、好感度与蜡烛花费试算。', about: '关于此网站', author: '关于作者', authorDesc: '兴趣制作，这个网站的目的是提供更简洁的信息，帮助光遇的玩家快速了解。', project: '项目网站', github: 'GitHub 项目 (点击前往)', contact: '联系方式' },
+        'en': { langLabel: 'Language', title: 'Sky Tools', spiritTitle: 'Season Spirit Calculator', spiritDesc: 'Calculate required seasonal candles and affection. Supports multiple custom save profiles.', friendTitle: 'Friend Tree Planner', friendDesc: 'Plan friend tree unlocks, calculate costs, and manage multiple friend profiles.', about: 'About', author: 'Author', authorDesc: 'Created out of interest to provide a clean and quick reference for Sky players.', project: 'Project Links', github: 'GitHub Repository', contact: 'Contact' }
+    };
+
+    let currentLang = localStorage.getItem('sky_tool_lang') || 'zh-hant';
+    
+    function init() {
         const theme = localStorage.getItem('sky_tool_theme') || 'light';
         if (theme === 'dark') document.body.classList.add('dark-mode');
+        document.getElementById('langSelect').value = currentLang;
+        updateUI();
     }
+
     function toggleTheme() {
         document.body.classList.toggle('dark-mode');
-        const isDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('sky_tool_theme', isDark ? 'dark' : 'light');
+        localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
     }
-    initTheme();
+
+    function changeLang() {
+        currentLang = document.getElementById('langSelect').value;
+        localStorage.setItem('sky_tool_lang', currentLang);
+        updateUI();
+    }
+
+    function updateUI() {
+        const t = uiDict[currentLang];
+        document.getElementById('ui-lang-label').textContent = t.langLabel;
+        document.getElementById('ui-title').textContent = t.title;
+        document.getElementById('ui-spirit-title').textContent = t.spiritTitle;
+        document.getElementById('ui-spirit-desc').textContent = t.spiritDesc;
+        document.getElementById('ui-friend-title').textContent = t.friendTitle;
+        document.getElementById('ui-friend-desc').textContent = t.friendDesc;
+        document.getElementById('ui-about').textContent = t.about;
+        document.getElementById('ui-author').textContent = t.author;
+        document.getElementById('ui-author-desc').textContent = t.authorDesc;
+        document.getElementById('ui-project').textContent = t.project;
+        document.getElementById('ui-github').textContent = t.github;
+        document.getElementById('ui-contact').textContent = t.contact;
+    }
+
+    init();
 </script>
 </body>
 </html>

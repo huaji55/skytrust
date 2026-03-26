@@ -6,12 +6,15 @@
 <title>光遇好友樹規劃器</title>
 
 <style>
-/* 基礎樣式 (Light Mode Default) */
 body { font-family:"Segoe UI", sans-serif; background-color:#fafafa; margin:0; padding:0; color:#333; transition: 0.3s; }
-header { text-align:center; background:linear-gradient(135deg,#66a6ff,#89f7fe); color:#fff; padding:12px 0; font-size:22px; font-weight:bold; letter-spacing:1px; box-shadow:0 2px 6px rgba(0,0,0,0.3); position: relative;}
+header { text-align:center; background:linear-gradient(135deg,#66a6ff,#89f7fe); color:#fff; padding:15px 0; font-size:22px; font-weight:bold; letter-spacing:1px; box-shadow:0 2px 6px rgba(0,0,0,0.3); position: relative;}
 
-.theme-btn { position: absolute; right: 15px; top: 10px; background: rgba(0,0,0,0.2); border: none; color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; }
-.theme-btn:hover { background: rgba(0,0,0,0.4); }
+.top-controls { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; align-items: center; }
+.top-left-controls { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; align-items: center; }
+.lang-label { font-size: 12px; font-weight: bold; color: rgba(255,255,255,0.9); }
+.top-btn, .top-select { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; outline: none; }
+.top-btn:hover, .top-select:hover { background: rgba(0,0,0,0.4); }
+.top-select option { background: #333; color: #fff; }
 
 .dashboard { background-color: #fff; padding: 15px; margin: 15px auto; width: 90%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee; transition: 0.3s;}
 .profile-section { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; flex-wrap: wrap;}
@@ -41,7 +44,7 @@ button:active, .back-btn:active { transform:translateY(1px); }
 .item { width:70px; text-align:center; cursor:pointer; border:2px solid #ccc; border-radius:12px; padding:6px; transition:0.3s; background-color:#f9f9f9; position: relative; user-select: none; color: #333;}
 .item:hover { border-color:#66a6ff; transform: scale(1.05); }
 .item.unlocked { border-color:#4CAF50; background-color:#e7fbe7; }
-.item.locked { opacity: 0.7; filter: grayscale(50%); }
+.item.locked { opacity: 0.6; filter: grayscale(100%); }
 
 .item img { width:100%; height:auto; border-radius:8px; margin-bottom: 4px; pointer-events: none; }
 .item-name { font-size:11px; font-weight:bold; line-height:1.2; margin-bottom: 2px; }
@@ -50,7 +53,7 @@ button:active, .back-btn:active { transform:translateY(1px); }
 .cost-indicator { display: inline-block; width: 8px; height: 8px; background-color: #aaa; border-radius: 50%; margin-right: 3px; }
 .item.unlocked .cost-indicator { background-color: #4CAF50; }
 
-/* 黑暗模式 (Dark Mode) - 還原你原本的深色風格 */
+/* 黑暗模式 */
 body.dark-mode { background-color:#1e1e24; color:#eee; }
 body.dark-mode header { background: linear-gradient(135deg, #1e3c72, #2a5298); }
 body.dark-mode .dashboard { background-color: #2a2a35; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
@@ -72,70 +75,117 @@ body.dark-mode .cost-indicator { background-color: #f39c12; }
 <body>
 
 <header>
-    光遇好友樹規劃器
-    <button class="theme-btn" onclick="toggleTheme()">🌓 切換</button>
+    <span id="ui-title">光遇好友樹規劃器</span>
+    <div class="top-left-controls">
+        <span id="ui-lang-label" class="lang-label">語言</span>
+        <select id="langSelect" class="top-select" onchange="changeLang()">
+            <option value="zh-hant">繁體中文</option>
+            <option value="zh">简体中文</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
+    <div class="top-controls">
+        <button class="top-btn" onclick="toggleTheme()">🌓 Theme</button>
+    </div>
 </header>
 
 <div class="dashboard">
     <div class="profile-section">
-        <a href="index.html" class="back-btn">🏠 首頁</a>
+        <a href="index.html" class="back-btn" id="ui-home">🏠 首頁</a>
         <select id="profileSelect" onchange="switchProfile()"></select>
-        <button onclick="addProfile()">➕ 新增好友</button>
-        <button class="btn-reset" onclick="deleteProfile()" style="padding: 6px; font-size: 11px;">刪除當前</button>
+        <button onclick="addProfile()" id="ui-add-friend">➕ 新增好友</button>
+        <button class="btn-reset" onclick="deleteProfile()" style="padding: 6px; font-size: 11px;" id="ui-del-friend">刪除當前</button>
     </div>
 
     <div class="totals">
-        總好感度: <span id="totalAffection">0</span>
-        已花費蠟燭: <span id="totalCandleSpent">0</span> 
+        <span id="ui-t1">總好感度:</span> <span id="totalAffection">0</span>
+        <span id="ui-t2">已花費蠟燭:</span> <span id="totalCandleSpent">0</span> 
     </div>
     
     <div class="friendship-actions">
-        <button onclick="addAffection(1)">點火 (+1)</button>
-        <button onclick="addAffection(5)">送心 (+5)</button>
-        <button onclick="addAffection(10)">禮包 (+10)</button>
-        <button id="btnPreview" class="btn-preview" onclick="togglePreview()">👀 全解鎖對比版</button>
-        <button class="btn-reset" onclick="resetCurrentTree()">重置樹</button>
+        <button onclick="addAffection(1)" id="ui-btn-1">點火 (+1)</button>
+        <button onclick="addAffection(5)" id="ui-btn-5">送心 (+5)</button>
+        <button onclick="addAffection(10)" id="ui-btn-10">禮包 (+10)</button>
+        <button id="btnPreview" class="btn-preview" onclick="togglePreview()">👀 全解鎖預覽</button>
+        <button class="btn-reset" onclick="resetCurrentTree()" id="ui-reset">重置樹</button>
     </div>
-    <div class="hint-text">💡 提示：在未解鎖的圖示上 <b>點擊右鍵 (手機長按)</b> 可計算解鎖目標花費</div>
+    <div class="hint-text" id="ui-hint">💡 提示：在未解鎖的圖示上 <b>點擊右鍵 (手機長按)</b> 可計算目標花費</div>
 </div>
 
 <div id="treeContainer"></div>
 
 <script>
-// 主題切換邏輯
-function initTheme() {
-    const theme = localStorage.getItem('sky_tool_theme') || 'light';
-    if (theme === 'dark') document.body.classList.add('dark-mode');
-}
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-}
-initTheme();
+const uiDict = {
+    'zh-hant': { langLabel: '語言', title: '好友樹規劃器', home: '🏠 首頁', addFr: '➕ 新增好友', delFr: '刪除當前', t1: '總好感度:', t2: '已花費蠟燭:', b1: '點火 (+1)', b5: '送心 (+5)', b10: '禮包 (+10)', pv: '👀 全解鎖預覽', pvExit: '🔙 退出預覽', rst: '重置樹', hint: '💡 提示：在未解鎖的圖示上 點擊右鍵 (手機長按) 可計算目標花費', prompt: '請輸入好友暱稱：', noAff: '好感度不足', need: '需要', errOrd: '請先解鎖前一級的動作！', target: '🎯 目標計算' },
+    'zh': { langLabel: '语言', title: '好友树规划器', home: '🏠 首页', addFr: '➕ 新增好友', delFr: '删除当前', t1: '总好感度:', t2: '已花费蜡烛:', b1: '点火 (+1)', b5: '送心 (+5)', b10: '礼包 (+10)', pv: '👀 全解锁预览', pvExit: '🔙 退出预览', rst: '重置树', hint: '💡 提示：在未解锁的图标上 点击右键 (手机长按) 可计算目标花费', prompt: '请输入好友昵称：', noAff: '好感度不足', need: '需要', errOrd: '请先解锁前一级的动作！', target: '🎯 目标计算' },
+    'en': { langLabel: 'Language', title: 'Friend Tree Planner', home: '🏠 Home', addFr: '➕ Add Friend', delFr: 'Delete Current', t1: 'Total Affection:', t2: 'Candles Spent:', b1: 'Light (+1)', b5: 'Heart (+5)', b10: 'Pack (+10)', pv: '👀 Preview All', pvExit: '🔙 Exit Preview', rst: 'Reset Tree', hint: '💡 Hint: Right-click (or long press) a locked item to calculate costs.', prompt: 'Enter friend name:', noAff: 'Not enough affection', need: 'Requires', errOrd: 'Unlock previous level first!', target: '🎯 Target Calculation' }
+};
 
+let currentLang = localStorage.getItem('sky_tool_lang') || 'zh-hant';
+let rawJSONData = {};
 const TIER_REQ_EXP = { 1: 0, 2: 10, 3: 40, 4: 70, 5: 120, 6: 240, 7: 440 };
 let items = [];
 let affection = 0;
 const AFFECTION_PER_UNLOCK = 10;
 
-let profiles = JSON.parse(localStorage.getItem('friendProfiles')) || [{ id: 'friend_default', name: '預設好友' }];
+let profiles = JSON.parse(localStorage.getItem('friendProfiles')) || [{ id: 'friend_default', name: '預設好友/Default' }];
 let currentProfileId = localStorage.getItem('currentProfileId') || profiles[0].id;
 let isPreviewMode = false;
 
-initApp();
-
 function initApp() {
-    updateProfileDropdown();
+    const theme = localStorage.getItem('sky_tool_theme') || 'light';
+    if (theme === 'dark') document.body.classList.add('dark-mode');
+    document.getElementById('langSelect').value = currentLang;
+
     fetch('data/friend_tree.json')
     .then(resp=>resp.json())
     .then(data=>{
-        const treeData = data["FriendTree"].items;
+        rawJSONData = data;
+        updateUIText();
+        updateProfileDropdown();
+        loadLangData();
+    }).catch(err=>{
+        document.getElementById('treeContainer').innerHTML = "<p style='color:red;'>無法載入資料 (Failed to load data).</p>";
+    });
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+
+function changeLang() {
+    currentLang = document.getElementById('langSelect').value;
+    localStorage.setItem('sky_tool_lang', currentLang);
+    updateUIText();
+    loadLangData();
+}
+
+function updateUIText() {
+    const t = uiDict[currentLang];
+    document.getElementById('ui-lang-label').textContent = t.langLabel;
+    document.getElementById('ui-title').textContent = t.title;
+    document.getElementById('ui-home').textContent = t.home;
+    document.getElementById('ui-add-friend').textContent = t.addFr;
+    document.getElementById('ui-del-friend').textContent = t.delFr;
+    document.getElementById('ui-t1').textContent = t.t1;
+    document.getElementById('ui-t2').textContent = t.t2;
+    document.getElementById('ui-btn-1').textContent = t.b1;
+    document.getElementById('ui-btn-5').textContent = t.b5;
+    document.getElementById('ui-btn-10').textContent = t.b10;
+    document.getElementById('btnPreview').textContent = isPreviewMode ? t.pvExit : t.pv;
+    document.getElementById('ui-reset').textContent = t.rst;
+    document.getElementById('ui-hint').innerHTML = t.hint;
+}
+
+function loadLangData() {
+    const langData = rawJSONData[currentLang] || rawJSONData['zh-hant'] || rawJSONData['en'] || {};
+    if(langData["FriendTree"]) {
+        const treeData = langData["FriendTree"].items;
         items = treeData.map(item => ({ ...item, baseKey: `action_${item.actionId}_lv${item.level}` }));
         loadCurrentProfileData();
-    }).catch(err=>{
-        console.error("載入 JSON 失敗：", err);
-        document.getElementById('treeContainer').innerHTML = "<p style='text-align:center; color:red;'>錯誤：無法載入資料 (data/friend_tree.json)。</p>";
-    });
+    }
 }
 
 function updateProfileDropdown() {
@@ -158,7 +208,7 @@ function switchProfile() {
 }
 
 function addProfile() {
-    const name = prompt('請輸入好友暱稱：');
+    const name = prompt(uiDict[currentLang].prompt);
     if (name && name.trim() !== '') {
         const newId = 'friend_' + Date.now();
         profiles.push({ id: newId, name: name.trim() });
@@ -171,8 +221,8 @@ function addProfile() {
 }
 
 function deleteProfile() {
-    if (profiles.length <= 1) return alert('至少要保留一位好友喔！');
-    if (confirm(`確定要刪除當前好友的所有紀錄嗎？`)) {
+    if (profiles.length <= 1) return;
+    if (confirm(`Delete?`)) {
         localStorage.removeItem(`${currentProfileId}_affection`);
         profiles = profiles.filter(p => p.id !== currentProfileId);
         currentProfileId = profiles[0].id;
@@ -198,7 +248,7 @@ function saveState(){
 }
 
 function addAffection(amount) {
-    if (isPreviewMode) return alert('預覽模式下無法操作，請先關閉。');
+    if (isPreviewMode) return;
     affection += amount;
     saveState();
     updateUI();
@@ -209,10 +259,10 @@ function togglePreview() {
     const btn = document.getElementById('btnPreview');
     if (isPreviewMode) {
         btn.classList.add('active');
-        btn.textContent = '🔙 退出預覽模式';
+        btn.textContent = uiDict[currentLang].pvExit;
     } else {
         btn.classList.remove('active');
-        btn.textContent = '👀 全解鎖對比版';
+        btn.textContent = uiDict[currentLang].pv;
     }
     updateUI();
 }
@@ -224,6 +274,7 @@ function calcTotals(){
 }
 
 function updateUI(){
+    const t = uiDict[currentLang];
     document.getElementById('totalAffection').textContent = isPreviewMode ? "MAX" : affection;
     document.getElementById('totalCandleSpent').textContent = isPreviewMode ? "MAX" : calcTotals();
     const container = document.getElementById('treeContainer');
@@ -260,7 +311,7 @@ function updateUI(){
         const reqExpForTier = TIER_REQ_EXP[tierLv] || 0;
         const label = document.createElement('div');
         label.className = 'tier-label';
-        label.textContent = `— Tier ${tierLv} (需 ${reqExpForTier} 好感) —`;
+        label.textContent = `— Tier ${tierLv} (${t.need} ${reqExpForTier}) —`;
         tierRow.appendChild(label); 
 
         const sortedItems = tierGroups[tierLv].sort((a,b) => a.order - b.order);
@@ -271,7 +322,7 @@ function updateUI(){
             const itemsRow = document.createElement('div');
             itemsRow.className = 'items-row';
             chunks[i].forEach(item => {
-                const itemDiv = createItemDiv(item, actionMaxUnlocked[item.actionId]);
+                const itemDiv = createItemDiv(item, actionMaxUnlocked[item.actionId], t);
                 itemsRow.appendChild(itemDiv);
             });
             tierRow.appendChild(itemsRow);
@@ -280,12 +331,12 @@ function updateUI(){
     });
 }
 
-function createItemDiv(item, currentMaxLevel){
+function createItemDiv(item, currentMaxLevel, t){
     const div = document.createElement('div');
     const isVisuallyUnlocked = isPreviewMode ? true : item.unlocked;
     div.className = `item ${isVisuallyUnlocked ? 'unlocked' : 'locked'}`;
     const requiredAffection = TIER_REQ_EXP[item.tier] || 0;
-    const costDisplay = isVisuallyUnlocked ? `Lv.${item.level}` : `<span class="cost-indicator"></span> ${item.cst}蠟燭`;
+    const costDisplay = isVisuallyUnlocked ? `Lv.${item.level}` : `<span class="cost-indicator"></span> ${item.cst}`;
 
     div.innerHTML = `
         <img src="${item.image}" alt="${item.nm}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzQ0NCIvPjwvc3ZnPg=='">
@@ -303,11 +354,11 @@ function createItemDiv(item, currentMaxLevel){
                     saveState();
                     updateUI();
                 } else {
-                    alert(`【好感度不足】\n開啟 Tier ${item.tier} 區域需要 ${requiredAffection} 點好感度。\n您目前只有 ${affection} 點。`);
+                    alert(`【${t.noAff}】\nTier ${item.tier} ${t.need} ${requiredAffection}\n(Current: ${affection})`);
                 }
-            } else alert('請先解鎖前一級的動作！');
+            } else alert(t.errOrd);
         } else {
-            if(confirm(`確定要取消解鎖「${item.nm} Lv.${item.level}」嗎？\n(這將會退回解鎖獲得的 10 點好感度)`)){
+            if(confirm(`Cancel unlock?`)){
                 item.unlocked = false;
                 affection -= AFFECTION_PER_UNLOCK;
                 if(affection < 0) affection = 0;
@@ -329,20 +380,22 @@ function createItemDiv(item, currentMaxLevel){
             }
         });
         const diffAffection = Math.max(0, requiredAffection - affection);
-        alert(`🎯 【目標計算：${item.nm} Lv.${item.level}】\n\n👉 需要依序解鎖：${levelsToUnlock.join(', ')}\n🕯️ 總共需要準備蠟燭：${costCandles} 根\n💖 目標好感度：${requiredAffection} (您還差 ${diffAffection} 點好感度)`);
+        alert(`${t.target}：${item.nm} Lv.${item.level}\n\n👉 Need: ${levelsToUnlock.join(', ')}\n🕯️ Candles: ${costCandles}\n💖 Affection: ${requiredAffection} (Need ${diffAffection} more)`);
     });
     return div;
 }
 
 function resetCurrentTree(){
-    if (isPreviewMode) return alert('請先關閉預覽模式再重置。');
-    if(confirm(`確定要重置【${profiles.find(p=>p.id===currentProfileId).name}】的進度嗎？`)){
+    if (isPreviewMode) return;
+    if(confirm(`Reset?`)){
         items.forEach(i => i.unlocked = false);
         affection = 0;
         saveState();
         updateUI();
     }
 }
+
+initApp();
 </script>
 </body>
 </html>

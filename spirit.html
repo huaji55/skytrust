@@ -6,12 +6,15 @@
 <title>季節解鎖計算器</title>
 
 <style>
-/* 基礎樣式 (Light Mode) */
 body { font-family:"Segoe UI", sans-serif; background-color:#fafafa; margin:0; padding:0; color:#333; transition: 0.3s; }
-header { text-align:center; background:linear-gradient(135deg,#66a6ff,#89f7fe); color:#fff; padding:12px 0; font-size:22px; font-weight:bold; letter-spacing:1px; box-shadow:0 2px 6px rgba(0,0,0,0.15); position: relative; }
+header { text-align:center; background:linear-gradient(135deg,#66a6ff,#89f7fe); color:#fff; padding:15px 0; font-size:22px; font-weight:bold; letter-spacing:1px; box-shadow:0 2px 6px rgba(0,0,0,0.15); position: relative; }
 
-.theme-btn { position: absolute; right: 15px; top: 10px; background: rgba(0,0,0,0.2); border: none; color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; }
-.theme-btn:hover { background: rgba(0,0,0,0.4); }
+.top-controls { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; align-items: center; }
+.top-left-controls { position: absolute; top: 15px; left: 15px; display: flex; gap: 8px; align-items: center; }
+.lang-label { font-size: 12px; font-weight: bold; color: rgba(255,255,255,0.9); }
+.top-btn, .top-select { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; outline: none; }
+.top-btn:hover, .top-select:hover { background: rgba(0,0,0,0.4); }
+.top-select option { background: #333; color: #fff; }
 
 .dashboard { background-color: #fff; padding: 15px; margin: 15px auto; width: 95%; max-width: 800px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
 .profile-section { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
@@ -52,7 +55,6 @@ button:active, .back-btn:active { transform:translateY(1px); }
 .item img { width:100%; height:auto; border-radius:6px; min-height: 20px;}
 .item div { font-size:10px; margin-top:1px; line-height:1.1; word-break: break-all; }
 
-/* 黑暗模式 (Dark Mode) */
 body.dark-mode { background-color: #1a1a1a; color: #ddd; }
 body.dark-mode header { background: linear-gradient(135deg, #1e3c72, #2a5298); }
 body.dark-mode .dashboard { background-color: #2a2a2a; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
@@ -77,46 +79,53 @@ body.dark-mode .item.unlocked.season { border-color: #f39c12; background-color: 
 <body>
 
 <header>
-    季節解鎖計算器
-    <button class="theme-btn" onclick="toggleTheme()">🌓 切換</button>
+    <span id="ui-title">季節先祖解鎖計算器</span>
+    <div class="top-left-controls">
+        <span id="ui-lang-label" class="lang-label">語言</span>
+        <select id="langSelect" class="top-select" onchange="changeLang()">
+            <option value="zh-hant">繁體中文</option>
+            <option value="zh">简体中文</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
+    <div class="top-controls">
+        <button class="top-btn" onclick="toggleTheme()">🌓 Theme</button>
+    </div>
 </header>
 
 <div class="dashboard">
     <div class="profile-section">
-        <a href="index.html" class="back-btn">🏠 首頁</a>
+        <a href="index.html" class="back-btn" id="ui-home">🏠 首頁</a>
         <select id="profileSelect" onchange="switchProfile()"></select>
-        <button onclick="addProfile()">➕ 新增方案</button>
-        <button class="btn-reset" onclick="deleteProfile()" style="padding: 6px; font-size: 11px;">刪除當前</button>
+        <button onclick="addProfile()" id="ui-add-profile">➕ 新增方案</button>
+        <button class="btn-reset" onclick="deleteProfile()" style="padding: 6px; font-size: 11px;" id="ui-del-profile">刪除當前</button>
     </div>
 
     <div class="totals">
-        總需求季蠟: <span id="totalRequiredCandle">0</span> |
-        總好感度: <span id="totalExp">0</span> |
-        目前已花: <span id="totalCandle">0</span> 蠟 |
-        還需天數: <span id="daysRequired">0</span> 天
+        <span id="ui-t1">總需求季蠟:</span> <span id="totalRequiredCandle">0</span> |
+        <span id="ui-t2">總好感度:</span> <span id="totalExp">0</span> |
+        <span id="ui-t3">目前已花:</span> <span id="totalCandle">0</span> |
+        <span id="ui-t4">還需天數:</span> <span id="daysRequired">0</span>
     </div>
 
     <div class="global-controls">
         <select id="seasonSelect" onchange="switchSeason()"></select>
-        <button class="btn-reset" onclick="resetSeason()">重置當前季節</button>
+        <button class="btn-reset" onclick="resetSeason()" id="ui-reset-season">重置當前季節</button>
     </div>
 </div>
 
 <div id="spiritsContainer"></div>
 
 <script>
-// 主題初始化
-function initTheme() {
-    const theme = localStorage.getItem('sky_tool_theme') || 'light';
-    if (theme === 'dark') document.body.classList.add('dark-mode');
-}
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-}
-initTheme();
+const uiDict = {
+    'zh-hant': { langLabel: '語言', title: '季節先祖解鎖計算器', home: '🏠 首頁', addProf: '➕ 新增方案', delProf: '刪除當前', t1: '總需求季蠟:', t2: '總好感度:', t3: '目前已花:', t4: '還需天數:', resetSeason: '重置當前季節', compExp: '陪伴好感度', resetSpirit: '重置進度', cst: '季蠟', exp: '好感', profPrompt: '請輸入自定義解鎖方案名稱：', errReq: '你還不能解鎖', errReq2: '需要總好感度達到' },
+    'zh': { langLabel: '语言', title: '季节先祖解锁计算器', home: '🏠 首页', addProf: '➕ 新增方案', delProf: '删除当前', t1: '总需求季蜡:', t2: '总好感度:', t3: '目前已花:', t4: '还需天数:', resetSeason: '重置当前季节', compExp: '陪伴好感度', resetSpirit: '重置进度', cst: '季蜡', exp: '好感', profPrompt: '请输入自定义解锁方案名称：', errReq: '你还不能解锁', errReq2: '需要总好感度达到' },
+    'en': { langLabel: 'Language', title: 'Season Spirit Calculator', home: '🏠 Home', addProf: '➕ Add Profile', delProf: 'Delete Current', t1: 'Req. Candles:', t2: 'Total Affection:', t3: 'Spent:', t4: 'Days Left:', resetSeason: 'Reset Season', compExp: 'Companion Aff.', resetSpirit: 'Reset Progress', cst: 'Cost', exp: 'Aff.', profPrompt: 'Enter profile name:', errReq: 'Cannot unlock', errReq2: 'Requires total affection:' }
+};
 
-// 數據與存檔變數
+let currentLang = localStorage.getItem('sky_tool_lang') || 'zh-hant';
+let rawJSONData = {};
 let allSeasonsData = {};
 let currentSeason = "";
 let items = [];
@@ -124,34 +133,73 @@ let spiritExpMap = {};
 const EXP_PER_ITEM = 1; 
 let totalRequiredCandle = 0;
 
-let spiritProfiles = JSON.parse(localStorage.getItem('spiritProfiles')) || [{ id: 'spirit_default', name: '預設方案' }];
+let spiritProfiles = JSON.parse(localStorage.getItem('spiritProfiles')) || [{ id: 'spirit_default', name: '預設方案/Default' }];
 let currentProfileId = localStorage.getItem('currentSpiritProfileId') || spiritProfiles[0].id;
 
-// 載入 JSON
-fetch('data/spirits.json')
-.then(resp=>resp.json())
-.then(data=>{
-    allSeasonsData = data;
-    updateProfileDropdown();
+function initApp() {
+    const theme = localStorage.getItem('sky_tool_theme') || 'light';
+    if (theme === 'dark') document.body.classList.add('dark-mode');
+    document.getElementById('langSelect').value = currentLang;
     
-    const seasonSelect = document.getElementById('seasonSelect');
-    Object.keys(allSeasonsData).forEach(seasonName => {
-        const option = document.createElement('option');
-        option.value = seasonName;
-        option.textContent = seasonName;
-        seasonSelect.appendChild(option);
+    fetch('data/spirits.json')
+    .then(resp=>resp.json())
+    .then(data=>{
+        rawJSONData = data;
+        updateUIText();
+        updateProfileDropdown();
+        loadLangData();
+    }).catch(err=>{
+        document.getElementById('spiritsContainer').innerHTML = "<p style='color:red;'>無法載入資料 (Failed to load data).</p>";
     });
+}
 
-    if(Object.keys(allSeasonsData).length > 0) {
-        currentSeason = Object.keys(allSeasonsData)[0];
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+
+function changeLang() {
+    currentLang = document.getElementById('langSelect').value;
+    localStorage.setItem('sky_tool_lang', currentLang);
+    updateUIText();
+    loadLangData(); 
+}
+
+function updateUIText() {
+    const t = uiDict[currentLang];
+    document.getElementById('ui-lang-label').textContent = t.langLabel;
+    document.getElementById('ui-title').textContent = t.title;
+    document.getElementById('ui-home').textContent = t.home;
+    document.getElementById('ui-add-profile').textContent = t.addProf;
+    document.getElementById('ui-del-profile').textContent = t.delProf;
+    document.getElementById('ui-t1').textContent = t.t1;
+    document.getElementById('ui-t2').textContent = t.t2;
+    document.getElementById('ui-t3').textContent = t.t3;
+    document.getElementById('ui-t4').textContent = t.t4;
+    document.getElementById('ui-reset-season').textContent = t.resetSeason;
+}
+
+function loadLangData() {
+    allSeasonsData = rawJSONData[currentLang] || rawJSONData['zh-hant'] || rawJSONData['en'] || {};
+    const seasonSelect = document.getElementById('seasonSelect');
+    seasonSelect.innerHTML = ''; 
+    
+    const seasons = Object.keys(allSeasonsData);
+    if(seasons.length > 0) {
+        seasons.forEach(seasonName => {
+            const option = document.createElement('option');
+            option.value = seasonName;
+            option.textContent = seasonName;
+            seasonSelect.appendChild(option);
+        });
+        if(!seasons.includes(currentSeason)) {
+            currentSeason = seasons[0];
+        }
+        seasonSelect.value = currentSeason;
         loadSeasonData();
     }
-}).catch(err=>{
-    console.error("載入 JSON 失敗：", err);
-    document.getElementById('spiritsContainer').innerHTML = "<p style='color:red;'>無法載入資料，請檢查 data/spirits.json</p>";
-});
+}
 
-// 存檔管理邏輯
 function updateProfileDropdown() {
     const select = document.getElementById('profileSelect');
     select.innerHTML = '';
@@ -171,7 +219,7 @@ function switchProfile() {
 }
 
 function addProfile() {
-    const name = prompt('請輸入自定義解鎖方案名稱 (例如: 備用帳號、不買季卡)：');
+    const name = prompt(uiDict[currentLang].profPrompt);
     if (name && name.trim() !== '') {
         const newId = 'spirit_profile_' + Date.now();
         spiritProfiles.push({ id: newId, name: name.trim() });
@@ -184,11 +232,9 @@ function addProfile() {
 }
 
 function deleteProfile() {
-    if (spiritProfiles.length <= 1) return alert('至少要保留一個方案喔！');
-    if (confirm(`確定要刪除當前方案的所有紀錄嗎？`)) {
-        // 清除當前方案的 localStorage 資料 (簡單清理，精確清理需要遍歷所有 keys)
+    if (spiritProfiles.length <= 1) return;
+    if (confirm(`Delete?`)) {
         localStorage.removeItem(`${currentProfileId}_spiritExpMap`);
-        
         spiritProfiles = spiritProfiles.filter(p => p.id !== currentProfileId);
         currentProfileId = spiritProfiles[0].id;
         localStorage.setItem('spiritProfiles', JSON.stringify(spiritProfiles));
@@ -198,7 +244,6 @@ function deleteProfile() {
     }
 }
 
-// 季節切換與資料載入
 function switchSeason() {
     currentSeason = document.getElementById('seasonSelect').value;
     loadSeasonData();
@@ -211,18 +256,18 @@ function loadSeasonData() {
     const spiritDataMap = {};
     const seasonData = allSeasonsData[currentSeason];
 
-    Object.keys(seasonData).forEach(key => {
+    Object.keys(seasonData).forEach((key, spiritIndex) => {
         const spirit = seasonData[key];
         spiritDataMap[key] = { name: spirit.name, image: spirit.image };
 
-        const uniqueSpiritKey = `${currentSeason}_${key}`;
+        const uniqueSpiritKey = `season_data_s${spiritIndex}`; 
         if(spiritExpMap[uniqueSpiritKey] === undefined) spiritExpMap[uniqueSpiritKey] = 0; 
         
-        spirit.items.forEach(item => {
+        spirit.items.forEach((item, itemIndex) => {
             item.spiritKey = uniqueSpiritKey; 
             item.spiritName = spirit.name;
             item.spiritImage = spirit.image; 
-            item.key = `${currentSeason}_${key}_${item.nm}_${item.level}`;
+            item.key = `season_data_s${spiritIndex}_lv${item.level}_i${itemIndex}`;
             items.push(item);
             totalRequiredCandle += (parseInt(item.cst) || 0);
         });
@@ -237,7 +282,6 @@ function saveState(){
     localStorage.setItem(`${currentProfileId}_spiritExpMap`, JSON.stringify(spiritExpMap)); 
 }
 
-// 數值計算
 function calcTotals(){
     let totalExp=0, totalCandle=0;
     const spiritTotals={};
@@ -295,8 +339,8 @@ function calcDaysRequired(totalCandleSpent, totalCandleRequired) {
     return Math.ceil(remainingCandles / DAILY_CANDLE_GAIN);
 }
 
-// 畫面渲染
 function updateUI(){
+    const t = uiDict[currentLang];
     const container = document.getElementById('spiritsContainer');
     if (!container) return; 
     container.innerHTML='';
@@ -344,7 +388,7 @@ function updateUI(){
 
         const inputGroup = document.createElement('div');
         inputGroup.className = 'input-group';
-        inputGroup.innerHTML = `陪伴好感度: <span id="exp-${spiritKey}">${currentExpValue}</span>`;
+        inputGroup.innerHTML = `${t.compExp}: <span id="exp-${spiritKey}">${currentExpValue}</span>`;
         
         const inputExp = document.createElement('input');
         inputExp.type = 'number';
@@ -352,11 +396,11 @@ function updateUI(){
         inputExp.id = `input-${spiritKey}`;
 
         const btnAddExp = document.createElement('button');
-        btnAddExp.textContent = `+${EXP_PER_ITEM} 好感度`;
+        btnAddExp.textContent = `+${EXP_PER_ITEM}`;
         btnAddExp.onclick = () => addspiritExp(spiritKey, parseInt(inputExp.value) || EXP_PER_ITEM);
 
         const btnReset = document.createElement('button');
-        btnReset.textContent = '重置進度';
+        btnReset.textContent = t.resetSpirit;
         btnReset.onclick = () => resetspirit(spiritKey);
 
         controlsDiv.appendChild(inputGroup);
@@ -384,12 +428,13 @@ function updateUI(){
 
             const spiritGroups = {};
             levelItems.forEach(item=>{
-                if(!spiritGroups[item.spirit]) spiritGroups[item.spirit]=[];
-                spiritGroups[item.spirit].push(item);
+                const sID = item.spirit || 0;
+                if(!spiritGroups[sID]) spiritGroups[sID]=[];
+                spiritGroups[sID].push(item);
             });
 
-            Object.keys(spiritGroups).sort((a,b)=>a-b).forEach(spirit=>{
-                const itemsInspirit = spiritGroups[spirit];
+            Object.keys(spiritGroups).sort((a,b)=>a-b).forEach(sID=>{
+                const itemsInspirit = spiritGroups[sID];
                 const nonSeason = itemsInspirit.filter(i=>!i.season);
                 const season = itemsInspirit.filter(i=>i.season);
                 const orderedItems = [...nonSeason, ...season];
@@ -403,7 +448,7 @@ function updateUI(){
                     let firstSeasonItemDiv = null; 
 
                     slice.forEach(item=>{
-                        const itemDiv = createItemDiv(item, spiritItems, spiritKey); 
+                        const itemDiv = createItemDiv(item, spiritItems, spiritKey, t); 
                         innerRow.appendChild(itemDiv);
                         if (!item.season) nonSeasonCount++;
                         else if (!firstSeasonItemDiv) firstSeasonItemDiv = itemDiv; 
@@ -425,19 +470,19 @@ function updateUI(){
 
         const totalspiritExp = calcspiritCurrentExp(spiritKey, spiritItems);
         const unlockedItemsExp = totals.spiritTotals[spiritKey]?.exp || 0;
-        const t = totals.spiritTotals[spiritKey]||{exp:0,cst:0}
+        const spT = totals.spiritTotals[spiritKey]||{exp:0,cst:0}
         const spiritTotalRequiredCost = totals.spiritRequiredCandles[spiritKey] || 0;
         
         const footer = document.createElement('div');
         footer.className='spirit-footer';
-        footer.innerHTML = `總需求季蠟: ${spiritTotalRequiredCost} <br> 已解鎖物品好感度: ${unlockedItemsExp} <br> 總解鎖好感度: ${totalspiritExp}<br>目前總季蠟: ${t.cst}`;
+        footer.innerHTML = `${t.t1} ${spiritTotalRequiredCost} <br> ${t.t2} ${totalspiritExp}<br>${t.t3} ${spT.cst}`;
         ancDiv.appendChild(footer);
 
         container.appendChild(ancDiv);
     });
 }
 
-function createItemDiv(item, spiritItems, spiritKey){
+function createItemDiv(item, spiritItems, spiritKey, t){
     const div=document.createElement('div');
     if(item.unlocked) div.classList.add('unlocked');
     if(item.season) div.classList.add('season');
@@ -446,8 +491,8 @@ function createItemDiv(item, spiritItems, spiritKey){
     div.innerHTML=`
         <img class="item-img" src="${item.image}" onerror="this.style.display='none'">
         <div style="font-weight:bold">${item.nm}</div>
-        <div>季蠟: ${item.cst}</div>
-        <div>好感度: ${item.exp}</div>
+        <div>${t.cst}: ${item.cst}</div>
+        <div>${t.exp}: ${item.exp}</div>
     `;
 
     div.addEventListener('click', ()=>{
@@ -457,7 +502,7 @@ function createItemDiv(item, spiritItems, spiritKey){
             saveState();
             updateUI();
         } else {
-            alert(`你還不能解鎖 ${item.spiritName} 的 Lv.${item.level}。\n需要總好感度達到 ${calcspiritLevels(spiritItems)[item.level]||'??'} ，請先解鎖低層物品。`);
+            alert(`${t.errReq} ${item.spiritName} (Lv.${item.level})。\n${t.errReq2} ${calcspiritLevels(spiritItems)[item.level]||'??'}。`);
         }
     });
     return div;
@@ -472,7 +517,7 @@ function addspiritExp(spiritKey, amount){
 }
 
 function resetspirit(spiritKey){
-    if(confirm(`確定重置此先祖的所有解鎖進度嗎？`)){
+    if(confirm(`Reset?`)){
         items.filter(i => i.spiritKey === spiritKey).forEach(i => i.unlocked = false);
         spiritExpMap[spiritKey] = 0;
         saveState();
@@ -481,15 +526,17 @@ function resetspirit(spiritKey){
 }
 
 function resetSeason(){
-    if(confirm(`確定重置【當前方案】在此季節的全部進度嗎？`)){
+    if(confirm(`Reset Season?`)){
         items.forEach(i=>i.unlocked=false);
         Object.keys(spiritExpMap).forEach(key => {
-            if (key.startsWith(currentSeason + "_")) spiritExpMap[key] = 0;
+            spiritExpMap[key] = 0;
         });
         saveState();
         updateUI();
     }
 }
+
+initApp();
 </script>
 </body>
 </html>
