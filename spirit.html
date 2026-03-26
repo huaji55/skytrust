@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>季節解鎖計算器</title>
+
+<style>
+/* 基礎樣式 (Light Mode) */
+body { font-family:"Segoe UI", sans-serif; background-color:#fafafa; margin:0; padding:0; color:#333; transition: 0.3s; }
+header { text-align:center; background:linear-gradient(135deg,#66a6ff,#89f7fe); color:#fff; padding:12px 0; font-size:22px; font-weight:bold; letter-spacing:1px; box-shadow:0 2px 6px rgba(0,0,0,0.15); position: relative; }
+
+.theme-btn { position: absolute; right: 15px; top: 10px; background: rgba(0,0,0,0.2); border: none; color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+.theme-btn:hover { background: rgba(0,0,0,0.4); }
+
+.dashboard { background-color: #fff; padding: 15px; margin: 15px auto; width: 95%; max-width: 800px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
+.profile-section { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+.profile-section select { padding: 6px; border-radius: 6px; border: 1px solid #ccc; outline: none; background: #fff; color: #333; }
+
+.totals { text-align:center; font-size:13px; font-weight:500; margin-bottom: 10px;}
+.totals span { font-weight: bold; color: #e67e22; font-size: 15px; }
+
+.global-controls { text-align:center; display: flex; justify-content: center; gap: 10px; align-items: center; flex-wrap: wrap; }
+.global-controls select { padding: 6px; border-radius: 6px; border: 1.5px solid #ccc; font-size: 14px; outline: none; background: #fff; color: #333;}
+
+button, .back-btn { background-color:#66a6ff; color:white; border:none; border-radius:6px; padding:6px 10px; font-size:13px; cursor:pointer; transition:0.2s; text-decoration: none; display: inline-block; box-sizing: border-box; font-weight: bold;}
+button:hover, .back-btn:hover { background-color:#5597f0; transform:translateY(-1px); }
+button:active, .back-btn:active { transform:translateY(1px); }
+.back-btn { background-color: #888; }
+.back-btn:hover { background-color: #666; }
+.btn-reset { background-color: #e74c3c; }
+.btn-reset:hover { background-color: #c0392b; }
+
+#spiritsContainer { display:flex; flex-wrap:wrap; justify-content:center; gap: 20px; padding:12px; } 
+.spirit { display:flex; flex-direction:column; align-items:center; border:1px solid #ddd; border-radius:10px; padding:8px; width:200px; box-shadow:0 1px 3px rgba(0,0,0,0.08); background-color:#fff; transition:0.3s; margin-bottom:10px; }
+.spirit:hover { transform:translateY(-3px); box-shadow:0 3px 8px rgba(0,0,0,0.12); }
+.spirit-image { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 8px; border: 2px solid #ddd; object-fit: cover; }
+.spirit-header { font-size:16px; font-weight:bold; margin-bottom:6px; color:#222; text-align:center; min-height: 24px;} 
+.spirit-footer { font-size:12px; margin-top:8px; color:#666; text-align:center; line-height: 1.4; } 
+
+.spirit-controls { margin-top: 4px; margin-bottom: 8px; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 0; border-top: 1px solid #eee; width: 100%; }
+.spirit-controls input[type="number"] { width: 35px; padding: 2px 4px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px; background: #fff; color: #333;}
+
+.level-row { display:flex; flex-direction:column-reverse; align-items:center; margin-bottom:4px; border-top:1px solid #eee; padding-top:4px; width:100%; }
+.level-label { font-weight:bold; font-size:12px; margin-top:2px; color:#222; }
+.items-row { display:flex; justify-content:flex-start; gap: 4px; margin-bottom:1px; width:100%; }
+.item { width:60px; text-align:center; cursor:pointer; border:1.5px solid gray; border-radius:6px; padding:3px; transition:0.2s; background-color:#f9f9f9; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.item:hover { border-color:#66a6ff; box-shadow:0 0 4px rgba(102,166,255,0.6); }
+.item.unlocked { border-color:#4CAF50; background-color:#e7fbe7; }
+.item.season { border-color:#ff9800; background-color:#fff3e0; }
+.item.unlocked.season { border-color:#4CAF50; background-color:#e7fbe7; }
+.item img { width:100%; height:auto; border-radius:6px; min-height: 20px;}
+.item div { font-size:10px; margin-top:1px; line-height:1.1; word-break: break-all; }
+
+/* 黑暗模式 (Dark Mode) */
+body.dark-mode { background-color: #1a1a1a; color: #ddd; }
+body.dark-mode header { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+body.dark-mode .dashboard { background-color: #2a2a2a; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+body.dark-mode .profile-section { border-bottom-color: #444; }
+body.dark-mode .profile-section select, body.dark-mode .global-controls select { background: #333; color: #eee; border-color: #555; }
+body.dark-mode .spirit { background-color: #2a2a2a; border-color: #444; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+body.dark-mode .spirit-image { border-color: #444; }
+body.dark-mode .spirit-header, body.dark-mode .level-label { color: #eee; }
+body.dark-mode .spirit-footer { color: #aaa; }
+body.dark-mode .spirit-controls { border-top-color: #444; }
+body.dark-mode .level-row { border-top-color: #444; }
+body.dark-mode .spirit-controls input[type="number"] { background: #333; color: #eee; border-color: #555; }
+body.dark-mode .item { background-color: #333; border-color: #555; color: #ccc; }
+body.dark-mode .item.unlocked { border-color: #f39c12; background-color: #4a3b22; color: #fff;}
+body.dark-mode .item.season { border-color: #d35400; background-color: #5a2e15; }
+body.dark-mode .item.unlocked.season { border-color: #f39c12; background-color: #4a3b22; color: #fff; }
+
+@media (max-width:900px) { .spirit { width: calc(50% - 10px); } }
+@media (max-width:600px) { .spirit { width: calc(50% - 10px); } .item { width: 45px; } }
+</style>
+</head>
+<body>
+
+<header>
+    季節解鎖計算器
+    <button class="theme-btn" onclick="toggleTheme()">🌓 切換</button>
+</header>
+
+<div class="dashboard">
+    <div class="profile-section">
+        <a href="index.html" class="back-btn">🏠 首頁</a>
+        <select id="profileSelect" onchange="switchProfile()"></select>
+        <button onclick="addProfile()">➕ 新增方案</button>
+        <button class="btn-reset" onclick="deleteProfile()" style="padding: 6px; font-size: 11px;">刪除當前</button>
+    </div>
+
+    <div class="totals">
+        總需求季蠟: <span id="totalRequiredCandle">0</span> |
+        總好感度: <span id="totalExp">0</span> |
+        目前已花: <span id="totalCandle">0</span> 蠟 |
+        還需天數: <span id="daysRequired">0</span> 天
+    </div>
+
+    <div class="global-controls">
+        <select id="seasonSelect" onchange="switchSeason()"></select>
+        <button class="btn-reset" onclick="resetSeason()">重置當前季節</button>
+    </div>
+</div>
+
+<div id="spiritsContainer"></div>
+
+<script>
+// 主題初始化
+function initTheme() {
+    const theme = localStorage.getItem('sky_tool_theme') || 'light';
+    if (theme === 'dark') document.body.classList.add('dark-mode');
+}
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+initTheme();
+
+// 數據與存檔變數
+let allSeasonsData = {};
+let currentSeason = "";
+let items = [];
+let spiritExpMap = {}; 
+const EXP_PER_ITEM = 1; 
+let totalRequiredCandle = 0;
+
+let spiritProfiles = JSON.parse(localStorage.getItem('spiritProfiles')) || [{ id: 'spirit_default', name: '預設方案' }];
+let currentProfileId = localStorage.getItem('currentSpiritProfileId') || spiritProfiles[0].id;
+
+// 載入 JSON
+fetch('data/spirits.json')
+.then(resp=>resp.json())
+.then(data=>{
+    allSeasonsData = data;
+    updateProfileDropdown();
+    
+    const seasonSelect = document.getElementById('seasonSelect');
+    Object.keys(allSeasonsData).forEach(seasonName => {
+        const option = document.createElement('option');
+        option.value = seasonName;
+        option.textContent = seasonName;
+        seasonSelect.appendChild(option);
+    });
+
+    if(Object.keys(allSeasonsData).length > 0) {
+        currentSeason = Object.keys(allSeasonsData)[0];
+        loadSeasonData();
+    }
+}).catch(err=>{
+    console.error("載入 JSON 失敗：", err);
+    document.getElementById('spiritsContainer').innerHTML = "<p style='color:red;'>無法載入資料，請檢查 data/spirits.json</p>";
+});
+
+// 存檔管理邏輯
+function updateProfileDropdown() {
+    const select = document.getElementById('profileSelect');
+    select.innerHTML = '';
+    spiritProfiles.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p.id;
+        option.textContent = p.name;
+        if (p.id === currentProfileId) option.selected = true;
+        select.appendChild(option);
+    });
+}
+
+function switchProfile() {
+    currentProfileId = document.getElementById('profileSelect').value;
+    localStorage.setItem('currentSpiritProfileId', currentProfileId);
+    loadSeasonData();
+}
+
+function addProfile() {
+    const name = prompt('請輸入自定義解鎖方案名稱 (例如: 備用帳號、不買季卡)：');
+    if (name && name.trim() !== '') {
+        const newId = 'spirit_profile_' + Date.now();
+        spiritProfiles.push({ id: newId, name: name.trim() });
+        localStorage.setItem('spiritProfiles', JSON.stringify(spiritProfiles));
+        currentProfileId = newId;
+        localStorage.setItem('currentSpiritProfileId', currentProfileId);
+        updateProfileDropdown();
+        loadSeasonData();
+    }
+}
+
+function deleteProfile() {
+    if (spiritProfiles.length <= 1) return alert('至少要保留一個方案喔！');
+    if (confirm(`確定要刪除當前方案的所有紀錄嗎？`)) {
+        // 清除當前方案的 localStorage 資料 (簡單清理，精確清理需要遍歷所有 keys)
+        localStorage.removeItem(`${currentProfileId}_spiritExpMap`);
+        
+        spiritProfiles = spiritProfiles.filter(p => p.id !== currentProfileId);
+        currentProfileId = spiritProfiles[0].id;
+        localStorage.setItem('spiritProfiles', JSON.stringify(spiritProfiles));
+        localStorage.setItem('currentSpiritProfileId', currentProfileId);
+        updateProfileDropdown();
+        loadSeasonData();
+    }
+}
+
+// 季節切換與資料載入
+function switchSeason() {
+    currentSeason = document.getElementById('seasonSelect').value;
+    loadSeasonData();
+}
+
+function loadSeasonData() {
+    items = [];
+    spiritExpMap = JSON.parse(localStorage.getItem(`${currentProfileId}_spiritExpMap`) || '{}');
+    totalRequiredCandle = 0;
+    const spiritDataMap = {};
+    const seasonData = allSeasonsData[currentSeason];
+
+    Object.keys(seasonData).forEach(key => {
+        const spirit = seasonData[key];
+        spiritDataMap[key] = { name: spirit.name, image: spirit.image };
+
+        const uniqueSpiritKey = `${currentSeason}_${key}`;
+        if(spiritExpMap[uniqueSpiritKey] === undefined) spiritExpMap[uniqueSpiritKey] = 0; 
+        
+        spirit.items.forEach(item => {
+            item.spiritKey = uniqueSpiritKey; 
+            item.spiritName = spirit.name;
+            item.spiritImage = spirit.image; 
+            item.key = `${currentSeason}_${key}_${item.nm}_${item.level}`;
+            items.push(item);
+            totalRequiredCandle += (parseInt(item.cst) || 0);
+        });
+    });
+
+    items.forEach(i => i.unlocked = JSON.parse(localStorage.getItem(`${currentProfileId}_${i.key}`) || "false"));
+    updateUI(spiritDataMap);
+}
+
+function saveState(){
+    items.forEach(i=>localStorage.setItem(`${currentProfileId}_${i.key}`, i.unlocked));
+    localStorage.setItem(`${currentProfileId}_spiritExpMap`, JSON.stringify(spiritExpMap)); 
+}
+
+// 數值計算
+function calcTotals(){
+    let totalExp=0, totalCandle=0;
+    const spiritTotals={};
+    const spiritRequiredCandles = {};
+
+    items.forEach(i=>{
+        const c = parseInt(i.cst)||0;
+        if(!spiritRequiredCandles[i.spiritKey]) spiritRequiredCandles[i.spiritKey] = 0;
+        spiritRequiredCandles[i.spiritKey] += c;
+
+        if(i.unlocked){
+            const e = parseInt(i.exp)||0;
+            totalExp+=e; totalCandle+=c;
+            if(!spiritTotals[i.spiritKey]) spiritTotals[i.spiritKey]={exp:0,cst:0};
+            spiritTotals[i.spiritKey].exp+=e;
+            spiritTotals[i.spiritKey].cst+=c;
+        }
+    });
+    return {totalExp,totalCandle,spiritTotals, spiritRequiredCandles};
+}
+
+function calcspiritLevels(spiritItems){
+    const levelsExp = {};
+    for(let lv=2; lv<=5; lv++){
+        const prevItems = spiritItems.filter(i=>i.level<lv);
+        const cumExp = prevItems.reduce((sum,i)=>sum+(parseInt(i.exp)||0),0);
+        levelsExp[lv]=cumExp;
+    }
+    return levelsExp;
+}
+
+function calcspiritCurrentExp(spiritKey, spiritItems){
+    const itemsExp = spiritItems.filter(i=>i.unlocked).reduce((sum,i)=>sum+(parseInt(i.exp)||0),0);
+    return itemsExp + (spiritExpMap[spiritKey] || 0); 
+}
+
+function calcMaxLevel(spiritKey, spiritItems){
+    const levelsExp = calcspiritLevels(spiritItems);
+    const currentTotalExp = calcspiritCurrentExp(spiritKey, spiritItems); 
+    let maxLevel=1;
+    for(let lv=2; lv<=5; lv++){
+        if(currentTotalExp >= levelsExp[lv]) maxLevel=lv; 
+        else break;
+    }
+    return maxLevel;
+}
+
+function calcDaysRequired(totalCandleSpent, totalCandleRequired) {
+    const DAILY_CANDLE_GAIN = 6;
+    const INITIAL_CANDLE_START = 30; 
+    let remainingCandles = totalCandleRequired - totalCandleSpent;
+    if (remainingCandles <= 0) return 0;
+    if (remainingCandles > INITIAL_CANDLE_START) remainingCandles -= INITIAL_CANDLE_START;
+    else return 0;
+    return Math.ceil(remainingCandles / DAILY_CANDLE_GAIN);
+}
+
+// 畫面渲染
+function updateUI(){
+    const container = document.getElementById('spiritsContainer');
+    if (!container) return; 
+    container.innerHTML='';
+
+    const totals = calcTotals();
+    const days = calcDaysRequired(totals.totalCandle, totalRequiredCandle);
+    document.getElementById('daysRequired').textContent = days;
+    document.getElementById('totalExp').textContent = totals.totalExp; 
+    document.getElementById('totalCandle').textContent = totals.totalCandle;
+    document.getElementById('totalRequiredCandle').textContent = totalRequiredCandle;
+
+    const spiritsGrouped = {};
+    items.forEach(i=>{
+        if(!spiritsGrouped[i.spiritKey]) spiritsGrouped[i.spiritKey]=[];
+        spiritsGrouped[i.spiritKey].push(i);
+    });
+
+    const ITEMS_PER_ROW = 3; 
+    
+    Object.keys(spiritsGrouped).forEach(spiritKey=>{
+        const spiritItems = spiritsGrouped[spiritKey];
+        const spiritName = spiritItems[0].spiritName;
+        const spiritImage = spiritItems[0].spiritImage;
+        
+        const ancDiv = document.createElement('div');
+        ancDiv.className='spirit';
+
+        if (spiritImage) {
+            const img = document.createElement('img');
+            img.src = spiritImage;
+            img.className = 'spirit-image';
+            img.alt = spiritName;
+            ancDiv.appendChild(img);
+        }
+
+        const header = document.createElement('div');
+        header.className='spirit-header';
+        header.textContent = spiritName;
+        ancDiv.appendChild(header);
+        
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'spirit-controls';
+        
+        const currentExpValue = spiritExpMap[spiritKey] || 0;
+
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'input-group';
+        inputGroup.innerHTML = `陪伴好感度: <span id="exp-${spiritKey}">${currentExpValue}</span>`;
+        
+        const inputExp = document.createElement('input');
+        inputExp.type = 'number';
+        inputExp.value = EXP_PER_ITEM; 
+        inputExp.id = `input-${spiritKey}`;
+
+        const btnAddExp = document.createElement('button');
+        btnAddExp.textContent = `+${EXP_PER_ITEM} 好感度`;
+        btnAddExp.onclick = () => addspiritExp(spiritKey, parseInt(inputExp.value) || EXP_PER_ITEM);
+
+        const btnReset = document.createElement('button');
+        btnReset.textContent = '重置進度';
+        btnReset.onclick = () => resetspirit(spiritKey);
+
+        controlsDiv.appendChild(inputGroup);
+        controlsDiv.appendChild(btnAddExp);
+        controlsDiv.appendChild(btnReset);
+        ancDiv.appendChild(controlsDiv);
+        
+        const itemsContainer = document.createElement('div');
+        itemsContainer.className = 'items-group-wrapper'; 
+
+        const lvGroups = {};
+        for(let lv=1; lv<=5; lv++){ lvGroups[lv] = spiritItems.filter(i=>i.level===lv); }
+
+        Object.keys(lvGroups).sort((a,b)=>b-a).forEach(level=>{
+            const levelItems = lvGroups[level];
+            if(levelItems.length===0) return;
+
+            const levelRowWrapper = document.createElement('div');
+            levelRowWrapper.className='level-row';
+
+            const label = document.createElement('div');
+            label.className='level-label';
+            label.textContent = 'Lv.' + level;
+            levelRowWrapper.appendChild(label);
+
+            const spiritGroups = {};
+            levelItems.forEach(item=>{
+                if(!spiritGroups[item.spirit]) spiritGroups[item.spirit]=[];
+                spiritGroups[item.spirit].push(item);
+            });
+
+            Object.keys(spiritGroups).sort((a,b)=>a-b).forEach(spirit=>{
+                const itemsInspirit = spiritGroups[spirit];
+                const nonSeason = itemsInspirit.filter(i=>!i.season);
+                const season = itemsInspirit.filter(i=>i.season);
+                const orderedItems = [...nonSeason, ...season];
+
+                for(let i=Math.floor((orderedItems.length-1)/ITEMS_PER_ROW)*ITEMS_PER_ROW; i>=0; i-=ITEMS_PER_ROW){
+                    const slice = orderedItems.slice(i, i+ITEMS_PER_ROW);
+                    const innerRow = document.createElement('div');
+                    innerRow.className='items-row';
+                    
+                    let nonSeasonCount = 0;
+                    let firstSeasonItemDiv = null; 
+
+                    slice.forEach(item=>{
+                        const itemDiv = createItemDiv(item, spiritItems, spiritKey); 
+                        innerRow.appendChild(itemDiv);
+                        if (!item.season) nonSeasonCount++;
+                        else if (!firstSeasonItemDiv) firstSeasonItemDiv = itemDiv; 
+                    });
+
+                    if (nonSeasonCount > 0 && nonSeasonCount < slice.length && firstSeasonItemDiv) {
+                        firstSeasonItemDiv.style.marginLeft = 'auto'; 
+                    } else if (nonSeasonCount === 0 && slice.length > 0) {
+                        innerRow.style.justifyContent = 'flex-end';
+                    }
+                    levelRowWrapper.insertBefore(innerRow, levelRowWrapper.firstChild);
+                }
+            });
+
+            itemsContainer.appendChild(levelRowWrapper);
+        });
+        
+        ancDiv.appendChild(itemsContainer);
+
+        const totalspiritExp = calcspiritCurrentExp(spiritKey, spiritItems);
+        const unlockedItemsExp = totals.spiritTotals[spiritKey]?.exp || 0;
+        const t = totals.spiritTotals[spiritKey]||{exp:0,cst:0}
+        const spiritTotalRequiredCost = totals.spiritRequiredCandles[spiritKey] || 0;
+        
+        const footer = document.createElement('div');
+        footer.className='spirit-footer';
+        footer.innerHTML = `總需求季蠟: ${spiritTotalRequiredCost} <br> 已解鎖物品好感度: ${unlockedItemsExp} <br> 總解鎖好感度: ${totalspiritExp}<br>目前總季蠟: ${t.cst}`;
+        ancDiv.appendChild(footer);
+
+        container.appendChild(ancDiv);
+    });
+}
+
+function createItemDiv(item, spiritItems, spiritKey){
+    const div=document.createElement('div');
+    if(item.unlocked) div.classList.add('unlocked');
+    if(item.season) div.classList.add('season');
+    div.className += ' item';
+
+    div.innerHTML=`
+        <img class="item-img" src="${item.image}" onerror="this.style.display='none'">
+        <div style="font-weight:bold">${item.nm}</div>
+        <div>季蠟: ${item.cst}</div>
+        <div>好感度: ${item.exp}</div>
+    `;
+
+    div.addEventListener('click', ()=>{
+        const maxLevel = calcMaxLevel(spiritKey, spiritItems); 
+        if(item.level <= maxLevel || item.unlocked){
+            item.unlocked=!item.unlocked;
+            saveState();
+            updateUI();
+        } else {
+            alert(`你還不能解鎖 ${item.spiritName} 的 Lv.${item.level}。\n需要總好感度達到 ${calcspiritLevels(spiritItems)[item.level]||'??'} ，請先解鎖低層物品。`);
+        }
+    });
+    return div;
+}
+
+function addspiritExp(spiritKey, amount){
+    if(amount > 0){
+        spiritExpMap[spiritKey] = (spiritExpMap[spiritKey] || 0) + amount;
+        saveState();
+        updateUI();
+    }
+}
+
+function resetspirit(spiritKey){
+    if(confirm(`確定重置此先祖的所有解鎖進度嗎？`)){
+        items.filter(i => i.spiritKey === spiritKey).forEach(i => i.unlocked = false);
+        spiritExpMap[spiritKey] = 0;
+        saveState();
+        updateUI();
+    }
+}
+
+function resetSeason(){
+    if(confirm(`確定重置【當前方案】在此季節的全部進度嗎？`)){
+        items.forEach(i=>i.unlocked=false);
+        Object.keys(spiritExpMap).forEach(key => {
+            if (key.startsWith(currentSeason + "_")) spiritExpMap[key] = 0;
+        });
+        saveState();
+        updateUI();
+    }
+}
+</script>
+</body>
+</html>

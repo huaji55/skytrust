@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光遇好友樹規劃器</title>
+
+<style>
+/* 基礎樣式 (Light Mode Default) */
+body { font-family:"Segoe UI", sans-serif; background-color:#fafafa; margin:0; padding:0; color:#333; transition: 0.3s; }
+header { text-align:center; background:linear-gradient(135deg,#66a6ff,#89f7fe); color:#fff; padding:12px 0; font-size:22px; font-weight:bold; letter-spacing:1px; box-shadow:0 2px 6px rgba(0,0,0,0.3); position: relative;}
+
+.theme-btn { position: absolute; right: 15px; top: 10px; background: rgba(0,0,0,0.2); border: none; color: white; padding: 6px 10px; border-radius: 15px; cursor: pointer; font-size: 12px; transition: 0.2s; }
+.theme-btn:hover { background: rgba(0,0,0,0.4); }
+
+.dashboard { background-color: #fff; padding: 15px; margin: 15px auto; width: 90%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #eee; transition: 0.3s;}
+.profile-section { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; flex-wrap: wrap;}
+.profile-section select { padding: 6px; border-radius: 6px; background: #fff; color: #333; border: 1px solid #ccc; outline: none; }
+
+.totals { text-align:center; margin-bottom: 15px; font-size:14px; font-weight:500; color: #333; }
+.totals span { color: #e67e22; font-weight: bold; font-size: 16px; margin-right: 15px; }
+
+.friendship-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+button, .back-btn { background-color:#66a6ff; color:white; border:none; border-radius:6px; padding:8px 12px; font-size:13px; cursor:pointer; transition:0.2s; font-weight: bold; text-decoration: none; display: inline-block; box-sizing: border-box;}
+button:hover, .back-btn:hover { background-color:#5597f0; transform:translateY(-2px); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+button:active, .back-btn:active { transform:translateY(1px); }
+.back-btn { background-color: #888; }
+.back-btn:hover { background-color: #666; }
+.btn-reset { background-color: #e74c3c; }
+.btn-reset:hover { background-color: #c0392b; }
+.btn-preview { background-color: #9b59b6; }
+.btn-preview.active { background-color: #f1c40f; color: #333; box-shadow: 0 0 10px #f1c40f; }
+
+.hint-text { text-align: center; font-size: 12px; color: #666; margin-top: 10px; }
+
+#treeContainer { display:flex; flex-direction:column-reverse; align-items:center; gap: 20px; padding:20px; margin: 0 auto; max-width: 800px; } 
+.tier-row { display: flex; flex-direction: column; align-items: center; width: 100%; position: relative; padding: 10px 0; border-bottom: 1px dashed #ccc; }
+.tier-label { font-size: 12px; color: #666; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px; }
+
+.items-row { display:flex; justify-content: flex-start; gap: 15px; width: 288px; margin-bottom: 10px; }
+.item { width:70px; text-align:center; cursor:pointer; border:2px solid #ccc; border-radius:12px; padding:6px; transition:0.3s; background-color:#f9f9f9; position: relative; user-select: none; color: #333;}
+.item:hover { border-color:#66a6ff; transform: scale(1.05); }
+.item.unlocked { border-color:#4CAF50; background-color:#e7fbe7; }
+.item.locked { opacity: 0.7; filter: grayscale(50%); }
+
+.item img { width:100%; height:auto; border-radius:8px; margin-bottom: 4px; pointer-events: none; }
+.item-name { font-size:11px; font-weight:bold; line-height:1.2; margin-bottom: 2px; }
+.item-cost { font-size:10px; color: #666; }
+.item.unlocked .item-cost { color: #4CAF50; font-weight: bold; }
+.cost-indicator { display: inline-block; width: 8px; height: 8px; background-color: #aaa; border-radius: 50%; margin-right: 3px; }
+.item.unlocked .cost-indicator { background-color: #4CAF50; }
+
+/* 黑暗模式 (Dark Mode) - 還原你原本的深色風格 */
+body.dark-mode { background-color:#1e1e24; color:#eee; }
+body.dark-mode header { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+body.dark-mode .dashboard { background-color: #2a2a35; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+body.dark-mode .profile-section { border-bottom-color: #444; }
+body.dark-mode .profile-section select { background: #444; color: white; border-color: #66a6ff; }
+body.dark-mode .totals { color: #fff; }
+body.dark-mode .totals span { color: #f39c12; }
+body.dark-mode .hint-text { color: #aaa; }
+body.dark-mode .tier-row { border-bottom-color: #555; }
+body.dark-mode .tier-label { color: #888; }
+body.dark-mode .item { border-color: #555; background-color: #333; color: #eee; }
+body.dark-mode .item.locked { filter: grayscale(50%); opacity: 0.7; }
+body.dark-mode .item.unlocked { border-color:#f39c12; background-color:#4a3b22; }
+body.dark-mode .item-cost { color: #aaa; }
+body.dark-mode .item.unlocked .item-cost { color: #f39c12; }
+body.dark-mode .cost-indicator { background-color: #f39c12; }
+</style>
+</head>
+<body>
+
+<header>
+    光遇好友樹規劃器
+    <button class="theme-btn" onclick="toggleTheme()">🌓 切換</button>
+</header>
+
+<div class="dashboard">
+    <div class="profile-section">
+        <a href="index.html" class="back-btn">🏠 首頁</a>
+        <select id="profileSelect" onchange="switchProfile()"></select>
+        <button onclick="addProfile()">➕ 新增好友</button>
+        <button class="btn-reset" onclick="deleteProfile()" style="padding: 6px; font-size: 11px;">刪除當前</button>
+    </div>
+
+    <div class="totals">
+        總好感度: <span id="totalAffection">0</span>
+        已花費蠟燭: <span id="totalCandleSpent">0</span> 
+    </div>
+    
+    <div class="friendship-actions">
+        <button onclick="addAffection(1)">點火 (+1)</button>
+        <button onclick="addAffection(5)">送心 (+5)</button>
+        <button onclick="addAffection(10)">禮包 (+10)</button>
+        <button id="btnPreview" class="btn-preview" onclick="togglePreview()">👀 全解鎖對比版</button>
+        <button class="btn-reset" onclick="resetCurrentTree()">重置樹</button>
+    </div>
+    <div class="hint-text">💡 提示：在未解鎖的圖示上 <b>點擊右鍵 (手機長按)</b> 可計算解鎖目標花費</div>
+</div>
+
+<div id="treeContainer"></div>
+
+<script>
+// 主題切換邏輯
+function initTheme() {
+    const theme = localStorage.getItem('sky_tool_theme') || 'light';
+    if (theme === 'dark') document.body.classList.add('dark-mode');
+}
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('sky_tool_theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
+initTheme();
+
+const TIER_REQ_EXP = { 1: 0, 2: 10, 3: 40, 4: 70, 5: 120, 6: 240, 7: 440 };
+let items = [];
+let affection = 0;
+const AFFECTION_PER_UNLOCK = 10;
+
+let profiles = JSON.parse(localStorage.getItem('friendProfiles')) || [{ id: 'friend_default', name: '預設好友' }];
+let currentProfileId = localStorage.getItem('currentProfileId') || profiles[0].id;
+let isPreviewMode = false;
+
+initApp();
+
+function initApp() {
+    updateProfileDropdown();
+    fetch('data/friend_tree.json')
+    .then(resp=>resp.json())
+    .then(data=>{
+        const treeData = data["FriendTree"].items;
+        items = treeData.map(item => ({ ...item, baseKey: `action_${item.actionId}_lv${item.level}` }));
+        loadCurrentProfileData();
+    }).catch(err=>{
+        console.error("載入 JSON 失敗：", err);
+        document.getElementById('treeContainer').innerHTML = "<p style='text-align:center; color:red;'>錯誤：無法載入資料 (data/friend_tree.json)。</p>";
+    });
+}
+
+function updateProfileDropdown() {
+    const select = document.getElementById('profileSelect');
+    select.innerHTML = '';
+    profiles.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p.id;
+        option.textContent = p.name;
+        if (p.id === currentProfileId) option.selected = true;
+        select.appendChild(option);
+    });
+}
+
+function switchProfile() {
+    if (isPreviewMode) togglePreview(); 
+    currentProfileId = document.getElementById('profileSelect').value;
+    localStorage.setItem('currentProfileId', currentProfileId);
+    loadCurrentProfileData();
+}
+
+function addProfile() {
+    const name = prompt('請輸入好友暱稱：');
+    if (name && name.trim() !== '') {
+        const newId = 'friend_' + Date.now();
+        profiles.push({ id: newId, name: name.trim() });
+        localStorage.setItem('friendProfiles', JSON.stringify(profiles));
+        currentProfileId = newId;
+        localStorage.setItem('currentProfileId', currentProfileId);
+        updateProfileDropdown();
+        loadCurrentProfileData();
+    }
+}
+
+function deleteProfile() {
+    if (profiles.length <= 1) return alert('至少要保留一位好友喔！');
+    if (confirm(`確定要刪除當前好友的所有紀錄嗎？`)) {
+        localStorage.removeItem(`${currentProfileId}_affection`);
+        profiles = profiles.filter(p => p.id !== currentProfileId);
+        currentProfileId = profiles[0].id;
+        localStorage.setItem('friendProfiles', JSON.stringify(profiles));
+        localStorage.setItem('currentProfileId', currentProfileId);
+        updateProfileDropdown();
+        loadCurrentProfileData();
+    }
+}
+
+function loadCurrentProfileData() {
+    affection = parseInt(localStorage.getItem(`${currentProfileId}_affection`)) || 0;
+    items.forEach(i => {
+        i.unlocked = JSON.parse(localStorage.getItem(`${currentProfileId}_${i.baseKey}`) || "false");
+    });
+    updateUI();
+}
+
+function saveState(){
+    if (isPreviewMode) return; 
+    items.forEach(i => localStorage.setItem(`${currentProfileId}_${i.baseKey}`, i.unlocked));
+    localStorage.setItem(`${currentProfileId}_affection`, affection);
+}
+
+function addAffection(amount) {
+    if (isPreviewMode) return alert('預覽模式下無法操作，請先關閉。');
+    affection += amount;
+    saveState();
+    updateUI();
+}
+
+function togglePreview() {
+    isPreviewMode = !isPreviewMode;
+    const btn = document.getElementById('btnPreview');
+    if (isPreviewMode) {
+        btn.classList.add('active');
+        btn.textContent = '🔙 退出預覽模式';
+    } else {
+        btn.classList.remove('active');
+        btn.textContent = '👀 全解鎖對比版';
+    }
+    updateUI();
+}
+
+function calcTotals(){
+    let totalCandleSpent = 0;
+    items.forEach(i=>{ if(i.unlocked) totalCandleSpent += (parseInt(i.cst) || 0); });
+    return totalCandleSpent;
+}
+
+function updateUI(){
+    document.getElementById('totalAffection').textContent = isPreviewMode ? "MAX" : affection;
+    document.getElementById('totalCandleSpent').textContent = isPreviewMode ? "MAX" : calcTotals();
+    const container = document.getElementById('treeContainer');
+    container.innerHTML = '';
+
+    const actionMaxUnlocked = {};
+    items.forEach(i => {
+        if (!actionMaxUnlocked[i.actionId]) actionMaxUnlocked[i.actionId] = 0;
+        const isConsideredUnlocked = isPreviewMode ? true : i.unlocked;
+        if (isConsideredUnlocked && i.level > actionMaxUnlocked[i.actionId]) {
+            actionMaxUnlocked[i.actionId] = i.level;
+        }
+    });
+
+    let visibleItems = items.filter(i => {
+        if (isPreviewMode) {
+            const maxLvl = Math.max(...items.filter(item => item.actionId === i.actionId).map(item => item.level));
+            return i.level === maxLvl;
+        }
+        const currentMax = actionMaxUnlocked[i.actionId] || 0;
+        return currentMax === 0 ? i.level === 1 : (i.level === currentMax || i.level === currentMax + 1);
+    });
+
+    const tierGroups = {};
+    visibleItems.forEach(i => {
+        if(!tierGroups[i.tier]) tierGroups[i.tier] = [];
+        tierGroups[i.tier].push(i);
+    });
+
+    Object.keys(tierGroups).sort((a,b)=> a - b).forEach(tierLv => {
+        const tierRow = document.createElement('div');
+        tierRow.className = 'tier-row';
+        
+        const reqExpForTier = TIER_REQ_EXP[tierLv] || 0;
+        const label = document.createElement('div');
+        label.className = 'tier-label';
+        label.textContent = `— Tier ${tierLv} (需 ${reqExpForTier} 好感) —`;
+        tierRow.appendChild(label); 
+
+        const sortedItems = tierGroups[tierLv].sort((a,b) => a.order - b.order);
+        const chunks = [];
+        for(let i = 0; i < sortedItems.length; i += 3) chunks.push(sortedItems.slice(i, i + 3));
+
+        for(let i = chunks.length - 1; i >= 0; i--) {
+            const itemsRow = document.createElement('div');
+            itemsRow.className = 'items-row';
+            chunks[i].forEach(item => {
+                const itemDiv = createItemDiv(item, actionMaxUnlocked[item.actionId]);
+                itemsRow.appendChild(itemDiv);
+            });
+            tierRow.appendChild(itemsRow);
+        }
+        container.appendChild(tierRow);
+    });
+}
+
+function createItemDiv(item, currentMaxLevel){
+    const div = document.createElement('div');
+    const isVisuallyUnlocked = isPreviewMode ? true : item.unlocked;
+    div.className = `item ${isVisuallyUnlocked ? 'unlocked' : 'locked'}`;
+    const requiredAffection = TIER_REQ_EXP[item.tier] || 0;
+    const costDisplay = isVisuallyUnlocked ? `Lv.${item.level}` : `<span class="cost-indicator"></span> ${item.cst}蠟燭`;
+
+    div.innerHTML = `
+        <img src="${item.image}" alt="${item.nm}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzQ0NCIvPjwvc3ZnPg=='">
+        <div class="item-name">${item.nm}</div>
+        <div class="item-cost">${costDisplay}</div>
+    `;
+
+    div.addEventListener('click', ()=>{
+        if (isPreviewMode) return; 
+        if(!item.unlocked) {
+            if(item.level === currentMaxLevel + 1) {
+                if (affection >= requiredAffection) {
+                    item.unlocked = true;
+                    affection += AFFECTION_PER_UNLOCK;
+                    saveState();
+                    updateUI();
+                } else {
+                    alert(`【好感度不足】\n開啟 Tier ${item.tier} 區域需要 ${requiredAffection} 點好感度。\n您目前只有 ${affection} 點。`);
+                }
+            } else alert('請先解鎖前一級的動作！');
+        } else {
+            if(confirm(`確定要取消解鎖「${item.nm} Lv.${item.level}」嗎？\n(這將會退回解鎖獲得的 10 點好感度)`)){
+                item.unlocked = false;
+                affection -= AFFECTION_PER_UNLOCK;
+                if(affection < 0) affection = 0;
+                saveState();
+                updateUI();
+            }
+        }
+    });
+
+    div.addEventListener('contextmenu', (e) => {
+        e.preventDefault(); 
+        if (isPreviewMode || item.unlocked) return;
+        let costCandles = 0;
+        let levelsToUnlock = [];
+        items.forEach(i => {
+            if (i.actionId === item.actionId && i.level <= item.level && !i.unlocked) {
+                costCandles += parseInt(i.cst) || 0;
+                levelsToUnlock.push(`Lv.${i.level}`);
+            }
+        });
+        const diffAffection = Math.max(0, requiredAffection - affection);
+        alert(`🎯 【目標計算：${item.nm} Lv.${item.level}】\n\n👉 需要依序解鎖：${levelsToUnlock.join(', ')}\n🕯️ 總共需要準備蠟燭：${costCandles} 根\n💖 目標好感度：${requiredAffection} (您還差 ${diffAffection} 點好感度)`);
+    });
+    return div;
+}
+
+function resetCurrentTree(){
+    if (isPreviewMode) return alert('請先關閉預覽模式再重置。');
+    if(confirm(`確定要重置【${profiles.find(p=>p.id===currentProfileId).name}】的進度嗎？`)){
+        items.forEach(i => i.unlocked = false);
+        affection = 0;
+        saveState();
+        updateUI();
+    }
+}
+</script>
+</body>
+</html>

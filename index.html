@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光遇工具站 (Sky Tools)</title>
+<style>
+    /* 基礎樣式 (Light Mode) */
+    body { font-family: "Segoe UI", "Microsoft JhengHei", sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #333; line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
+    header { text-align: center; background: linear-gradient(135deg, #66a6ff, #89f7fe); color: #fff; padding: 30px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: relative; }
+    header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; }
+    header p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
+
+    /* 主題切換按鈕 */
+    .theme-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.2); border: none; color: white; padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: 0.2s; }
+    .theme-btn:hover { background: rgba(0,0,0,0.4); }
+
+    .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+    .nav-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+    .card { background-color: #fff; border-radius: 12px; padding: 25px 20px; width: 260px; text-align: center; text-decoration: none; color: #333; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 2px solid transparent; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background-color 0.3s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(102, 166, 255, 0.2); border-color: #66a6ff; }
+    .card-icon { font-size: 40px; margin-bottom: 10px; }
+    .card-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+    .card-desc { font-size: 13px; color: #666; transition: color 0.3s; }
+
+    .about-section { background-color: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: background-color 0.3s; }
+    .about-section h2 { text-align: center; margin-top: 0; margin-bottom: 25px; color: #2b5876; font-size: 22px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    .about-block { margin-bottom: 20px; }
+    .about-block h3 { font-size: 16px; color: #444; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+    .about-block h3::before { content: "✧"; color: #66a6ff; }
+    .about-block p, .contact-list { margin: 0 0 0 20px; font-size: 14px; color: #555; }
+    .about-block a { color: #66a6ff; text-decoration: none; font-weight: bold; }
+    .about-block a:hover { text-decoration: underline; }
+    .contact-list { list-style: none; padding: 0; }
+
+    /* 黑暗模式 (Dark Mode) */
+    body.dark-mode { background-color: #1a1a1a; color: #ddd; }
+    body.dark-mode header { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+    body.dark-mode .card { background-color: #2a2a2a; border-color: #444; color: #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    body.dark-mode .card:hover { border-color: #89f7fe; box-shadow: 0 8px 15px rgba(137, 247, 254, 0.1); }
+    body.dark-mode .card-desc { color: #aaa; }
+    body.dark-mode .about-section { background-color: #2a2a2a; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    body.dark-mode .about-section h2 { color: #89f7fe; border-bottom-color: #444; }
+    body.dark-mode .about-block h3 { color: #ddd; }
+    body.dark-mode .about-block p, body.dark-mode .contact-list { color: #aaa; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>光遇工具站</h1>
+    <p>Sky: Children of the Light Tools</p>
+    <button class="theme-btn" onclick="toggleTheme()">🌓 切換主題</button>
+</header>
+
+<div class="container">
+    <div class="nav-cards">
+        <a href="spirit.html" class="card">
+            <div class="card-icon">🕯️</div>
+            <div class="card-title">季節先祖計算器</div>
+            <div class="card-desc">計算先祖解鎖所需的季蠟與好感度，支援多套自定義解鎖方案儲存。</div>
+        </a>
+        <a href="friend.html" class="card">
+            <div class="card-icon">🤝</div>
+            <div class="card-title">好友樹規劃器</div>
+            <div class="card-desc">多好友紀錄支援，規劃各層級解鎖目標、好感度與蠟燭花費試算。</div>
+        </a>
+    </div>
+
+    <div class="about-section">
+        <h2>關於此網站</h2>
+        <div class="about-block">
+            <h3>關於作者</h3>
+            <p>興趣製作，這個網站的目的是提供更簡潔的資訊，幫助光遇的玩家快速了解。</p>
+        </div>
+        <div class="about-block">
+            <h3>專案網站</h3>
+            <p><a href="https://github.com/huaji55/sky_trust" target="_blank">GitHub 專案</a> (點擊前往)</p>
+            <p>歡迎提供修改建議與想法，敬請指教！</p>
+        </div>
+        <div class="about-block">
+            <h3>聯繫方式</h3>
+            <ul class="contact-list">
+                <li>📧 <strong>Gmail:</strong> <a href="mailto:adam105195@gmail.com">adam105195@gmail.com</a></li>
+                <li>💬 <strong>Discord:</strong> huaji.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initTheme() {
+        const theme = localStorage.getItem('sky_tool_theme') || 'light';
+        if (theme === 'dark') document.body.classList.add('dark-mode');
+    }
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('sky_tool_theme', isDark ? 'dark' : 'light');
+    }
+    initTheme();
+</script>
+</body>
+</html>
