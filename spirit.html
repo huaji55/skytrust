@@ -437,7 +437,7 @@ function loadSeasonData() {
             item.spiritImage = spirit.image; 
             item.key = `season_data_s${spiritIndex}_lv${item.level}_i${itemIndex}`;
             items.push(item);
-            totalRequiredCandle += (parseInt(item.cst) || 0);
+            totalRequiredCandle += (parseFloat(item.cst) || 0);
         });
     });
 
@@ -495,12 +495,12 @@ function calcTotals(){
     const spiritRequiredCandles = {};
 
     items.forEach(i=>{
-        const c = parseInt(i.cst)||0;
+        const c = parseFloat(i.cst)||0;
         if(!spiritRequiredCandles[i.spiritKey]) spiritRequiredCandles[i.spiritKey] = 0;
         spiritRequiredCandles[i.spiritKey] += c;
 
         if(i.unlocked){
-            const e = parseInt(i.exp)||0;
+            const e = parseFloat(i.exp)||0;
             totalExp+=e; totalCandle+=c;
             if(!spiritTotals[i.spiritKey]) spiritTotals[i.spiritKey]={exp:0,cst:0};
             spiritTotals[i.spiritKey].exp+=e;
@@ -514,14 +514,14 @@ function calcspiritLevels(spiritItems){
     const levelsExp = {};
     for(let lv=2; lv<=5; lv++){
         const prevItems = spiritItems.filter(i=>i.level<lv);
-        const cumExp = prevItems.reduce((sum,i)=>sum+(parseInt(i.exp)||0),0);
+        const cumExp = prevItems.reduce((sum,i)=>sum+(parseFloat(i.exp)||0),0);
         levelsExp[lv]=cumExp;
     }
     return levelsExp;
 }
 
 function calcspiritCurrentExp(spiritKey, spiritItems){
-    const itemsExp = spiritItems.filter(i=>i.unlocked).reduce((sum,i)=>sum+(parseInt(i.exp)||0),0);
+    const itemsExp = spiritItems.filter(i=>i.unlocked).reduce((sum,i)=>sum+(parseFloat(i.exp)||0),0);
     return itemsExp + (spiritExpMap[spiritKey] || 0); 
 }
 
@@ -556,7 +556,7 @@ function updateUI(){
     const days = calcDaysRequired(totals.totalCandle, totalRequiredCandle);
     
     document.getElementById('daysRequired').textContent = days;
-    document.getElementById('totalExp').textContent = totals.totalExp; 
+    document.getElementById('totalExp').textContent = Math.round(totals.totalExp * 100) / 100;
     document.getElementById('totalCandle').textContent = totals.totalCandle;
     document.getElementById('totalRequiredCandle').textContent = totalRequiredCandle;
     
@@ -632,7 +632,7 @@ rowCount += nonSeasonRows + seasonRows;
 
         const inputGroup = document.createElement('div');
         inputGroup.className = 'input-group';
-        inputGroup.innerHTML = `<span>${t.compExp}: <b>${currentExpValue}</b></span>`;
+        inputGroup.innerHTML = `<span>${t.compExp}: <b>${Math.round(currentExpValue * 100) / 100}</b></span>`;
         
         const actionRow = document.createElement('div');
         actionRow.className = 'input-group';
@@ -777,7 +777,7 @@ rowCount += nonSeasonRows + seasonRows;
         
         const footer = document.createElement('div');
         footer.className='spirit-footer';
-        footer.innerHTML = `<b>${t.t1}</b> ${spiritTotalRequiredCost} <br> <b>${t.t2}</b> ${totalspiritExp}<br><b>${t.t3}</b> ${spT.cst}`;
+        footer.innerHTML = `<b>${t.t1}</b> ${spiritTotalRequiredCost} <br> <b>${t.t2}</b> ${Math.round(totalspiritExp * 100) / 100}<br><b>${t.t3}</b> ${spT.cst}`;
         ancDiv.appendChild(footer);
 
         container.appendChild(ancDiv);
