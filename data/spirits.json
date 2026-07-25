@@ -1,5 +1,83 @@
 {
   "zh-hant": {
+    "致梵谷": {
+      "spirit1": {
+          "name": "喜悅的回憶",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c5/Joyful-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 12, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Dear-Van-Gogh-Joyful-Memory-Painting-Prop-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 6.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "帽子", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/ca/Dear-Van-Gogh-Joyful-Memory-Hair-Accessory-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "髮型", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/77/Dear-Van-Gogh-Joyful-Memory-Hair-icon.png"},
+          {"nm": "魔法", "cst": 8, "season": false, "level": 3, "exp": 2.66, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "斗篷", "cst": 26, "season": false, "level": 4, "exp": 5.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5f/Dear-Van-Gogh-Joyful-Memory-Cape-icon.png"},
+          {"nm": "黑色染料", "cst": 12, "season": false, "level": 4, "exp": 5.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/Black-dye-container-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit2": {
+          "name": "荷蘭的回憶",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/59/Dutch-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "道具", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0a/Dear-Van-Gogh-Dutch-Memory-Vase-Prop-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "白色染料", "cst": 10, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/White-dye-container-icon.png"},
+          {"nm": "髮型", "cst": 0, "season": true, "level": 3, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ab/Dear-Van-Gogh-Dutch-Memory-Hair-icon.png"},
+          {"nm": "斗篷", "cst": 26, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/85/Dear-Van-Gogh-Dutch-Memory-Cape-icon.png  "},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "服裝", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a1/Dear-Van-Gogh-Dutch-Memory-Outfit-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit3": {
+        "name": "鄉野的回憶",
+        "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7a/Rustic-Memory-Shop.png",
+        "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "道具", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/f2/Dear-Van-Gogh-Rustic-Memory-Painting-Prop-icon.png"},
+          {"nm": "紅色染料", "cst": 8, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6c/Red-dye-container-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 8, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "鞋子", "cst": 0, "season": true, "level": 3, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/36/Dear-Van-Gogh-Rustic-Memory-Shoes-icon.png"},
+          {"nm": "帽子", "cst": 26, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0e/Dear-Van-Gogh-Rustic-Memory-Hair-Accessory-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "斗篷", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/24/Dear-Van-Gogh-Rustic-Memory-Cape-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit4": {
+          "name": "藝術的回憶",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/16/Artistic-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 12, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/87/Dear-Van-Gogh-Artistic-Memory-Painting-Prop-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "帽子", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/26/Dear-Van-Gogh-Artistic-Memory-Hair-Accessory-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/Dear-Van-Gogh-Artistic-Memory-Vase-Prop-icon.png"},
+          {"nm": "黃色染料", "cst": 10, "season": false, "level": 3, "exp": 2.66, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ad/Yellow-dye-container-icon.png"},
+          {"nm": "魔法", "cst": 10, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "斗篷", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/96/Dear-Van-Gogh-Artistic-Memory-Cape-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      }
+    },
     "狂歡季": {
       "spirit1": {
           "name": "狂歡雜耍者",
@@ -65,8 +143,8 @@
           "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/bc/Carnival-Puzzle-Director-Spirit-cutout.png",
           "items": [
           {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/22/Carnival-Puzzle-Director-Emote-icon.png"},
-          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "樂譜", "cst": 19, "season": false, "level": 2, "exp": "3", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/4e/MusicSheet.png"},
           {"nm": "魔法", "cst": 7, "season": false, "level": 2, "exp": "3", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/22/Carnival-Puzzle-Director-Emote-icon.png"},
@@ -278,6 +356,84 @@
       }
     }
   },"zh": {
+    "致梵高": {
+      "spirit1": {
+          "name": "欢乐的回忆",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c5/Joyful-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 12, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Dear-Van-Gogh-Joyful-Memory-Painting-Prop-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 6.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "帽子", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/ca/Dear-Van-Gogh-Joyful-Memory-Hair-Accessory-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "髮型", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/77/Dear-Van-Gogh-Joyful-Memory-Hair-icon.png"},
+          {"nm": "魔法", "cst": 8, "season": false, "level": 3, "exp": 2.66, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "斗篷", "cst": 26, "season": false, "level": 4, "exp": 5.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5f/Dear-Van-Gogh-Joyful-Memory-Cape-icon.png"},
+          {"nm": "黑色染料", "cst": 12, "season": false, "level": 4, "exp": 5.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/Black-dye-container-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit2": {
+          "name": "荷兰的回忆"  ,
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/59/Dutch-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "道具", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0a/Dear-Van-Gogh-Dutch-Memory-Vase-Prop-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "白色染料", "cst": 10, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/White-dye-container-icon.png"},
+          {"nm": "髮型", "cst": 0, "season": true, "level": 3, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ab/Dear-Van-Gogh-Dutch-Memory-Hair-icon.png"},
+          {"nm": "斗篷", "cst": 26, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/85/Dear-Van-Gogh-Dutch-Memory-Cape-icon.png  "},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "服裝", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a1/Dear-Van-Gogh-Dutch-Memory-Outfit-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit3": {
+        "name": "乡野的回忆",
+        "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7a/Rustic-Memory-Shop.png",
+        "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "道具", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/f2/Dear-Van-Gogh-Rustic-Memory-Painting-Prop-icon.png"},
+          {"nm": "紅色染料", "cst": 8, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6c/Red-dye-container-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 8, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "鞋子", "cst": 0, "season": true, "level": 3, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/36/Dear-Van-Gogh-Rustic-Memory-Shoes-icon.png"},
+          {"nm": "帽子", "cst": 26, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0e/Dear-Van-Gogh-Rustic-Memory-Hair-Accessory-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "斗篷", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/24/Dear-Van-Gogh-Rustic-Memory-Cape-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit4": {
+          "name": "艺术的回忆",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/16/Artistic-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 12, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/87/Dear-Van-Gogh-Artistic-Memory-Painting-Prop-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "帽子", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/26/Dear-Van-Gogh-Artistic-Memory-Hair-Accessory-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/Dear-Van-Gogh-Artistic-Memory-Vase-Prop-icon.png"},
+          {"nm": "黃色染料", "cst": 10, "season": false, "level": 3, "exp": 2.66, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ad/Yellow-dye-container-icon.png"},
+          {"nm": "魔法", "cst": 10, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "斗篷", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/96/Dear-Van-Gogh-Artistic-Memory-Cape-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      }
+    },
     "狂欢季": {
       "spirit1": {
           "name": "狂欢杂耍演员",
@@ -343,8 +499,8 @@
           "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/bc/Carnival-Puzzle-Director-Spirit-cutout.png",
           "items": [
           {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/22/Carnival-Puzzle-Director-Emote-icon.png"},
-          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "樂譜", "cst": 19, "season": false, "level": 2, "exp": "3", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/4e/MusicSheet.png"},
           {"nm": "魔法", "cst": 7, "season": false, "level": 2, "exp": "3", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/22/Carnival-Puzzle-Director-Emote-icon.png"},
@@ -555,7 +711,87 @@
         ]
       }
     }
-  },"en": {
+  },"en": 
+  {
+    "Dear Van Gogh": 
+    {
+      "spirit1": {
+          "name": "Joyful Memory",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/c5/Joyful-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 12, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/62/Dear-Van-Gogh-Joyful-Memory-Painting-Prop-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 6.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "帽子", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/ca/Dear-Van-Gogh-Joyful-Memory-Hair-Accessory-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "髮型", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/77/Dear-Van-Gogh-Joyful-Memory-Hair-icon.png"},
+          {"nm": "魔法", "cst": 8, "season": false, "level": 3, "exp": 2.66, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "斗篷", "cst": 26, "season": false, "level": 4, "exp": 5.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/5f/Dear-Van-Gogh-Joyful-Memory-Cape-icon.png"},
+          {"nm": "黑色染料", "cst": 12, "season": false, "level": 4, "exp": 5.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/97/Black-dye-container-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b8/Dear-Van-Gogh-Joyful-Memory-Emote-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit2": {
+          "name": "Dutch Memory"  ,
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/5/59/Dutch-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "道具", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0a/Dear-Van-Gogh-Dutch-Memory-Vase-Prop-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "白色染料", "cst": 10, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/White-dye-container-icon.png"},
+          {"nm": "髮型", "cst": 0, "season": true, "level": 3, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ab/Dear-Van-Gogh-Dutch-Memory-Hair-icon.png"},
+          {"nm": "斗篷", "cst": 26, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/85/Dear-Van-Gogh-Dutch-Memory-Cape-icon.png  "},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/c/cb/Dear-Van-Gogh-Dutch-Memory-Emote-icon.png"},
+          {"nm": "服裝", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/a1/Dear-Van-Gogh-Dutch-Memory-Outfit-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit3": {
+        "name": "Rustic Memory",
+        "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/7/7a/Rustic-Memory-Shop.png",
+        "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "道具", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/f2/Dear-Van-Gogh-Rustic-Memory-Painting-Prop-icon.png"},
+          {"nm": "紅色染料", "cst": 8, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6c/Red-dye-container-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "魔法", "cst": 8, "season": false, "level": 3, "exp": 4.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "鞋子", "cst": 0, "season": true, "level": 3, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/36/Dear-Van-Gogh-Rustic-Memory-Shoes-icon.png"},
+          {"nm": "帽子", "cst": 26, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/0/0e/Dear-Van-Gogh-Rustic-Memory-Hair-Accessory-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/f/fc/Dear-Van-Gogh-Rustic-Memory-Emote-icon.png"},
+          {"nm": "斗篷", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/24/Dear-Van-Gogh-Rustic-Memory-Cape-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      },
+      "spirit4": {
+          "name": "Artistic Memory",
+          "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/16/Artistic-Memory-Shop.png",
+          "items": [
+          {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 12, "season": false, "level": 1, "exp": 2.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/8/87/Dear-Van-Gogh-Artistic-Memory-Painting-Prop-icon.png"},
+          {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "帽子", "cst": 18, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/26/Dear-Van-Gogh-Artistic-Memory-Hair-Accessory-icon.png"},
+          {"nm": "魔法", "cst": 6, "season": false, "level": 2, "exp": 3.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "動作03", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "道具", "cst": 22, "season": false, "level": 3, "exp": 2.67, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/64/Dear-Van-Gogh-Artistic-Memory-Vase-Prop-icon.png"},
+          {"nm": "黃色染料", "cst": 10, "season": false, "level": 3, "exp": 2.66, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/a/ad/Yellow-dye-container-icon.png"},
+          {"nm": "魔法", "cst": 10, "season": false, "level": 4, "exp": 10.0, "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
+          {"nm": "動作04", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/1c/Dear-Van-Gogh-Artistic-Memory-Emote-icon.png"},
+          {"nm": "斗篷", "cst": 0, "season": true, "level": 4, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/9/96/Dear-Van-Gogh-Artistic-Memory-Cape-icon.png"},
+          {"nm": "季心", "cst": 3, "season": true, "level": 5, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e2/Dear-Van-Gogh-Heart-icon.png"}
+              ]
+      }
+    },
     "Season of Carnival": {
       "spirit1": {
           "name": "Carnival Juggler",
@@ -621,8 +857,8 @@
           "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/bc/Carnival-Puzzle-Director-Spirit-cutout.png",
           "items": [
           {"nm": "動作01", "cst": 0, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/22/Carnival-Puzzle-Director-Emote-icon.png"},
-          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "陪伴先祖", "cst": 0,"season":false,"level":1,"exp":"0", "image":"https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/35/Spirit-relationship-follow-icon.png"},
+          {"nm": "魔法", "cst": 4, "season": false, "level": 1, "exp": "2", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "樂譜", "cst": 19, "season": false, "level": 2, "exp": "3", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/4/4e/MusicSheet.png"},
           {"nm": "魔法", "cst": 7, "season": false, "level": 2, "exp": "3", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/28/Special-event-spell-icon.png"},
           {"nm": "動作02", "cst": 0, "season": true, "level": 2, "exp": "0", "image": "https://static.wikia.nocookie.net/sky-children-of-the-light/images/2/22/Carnival-Puzzle-Director-Emote-icon.png"},
